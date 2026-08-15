@@ -37,4 +37,7 @@ setTimeout(() => {
 
 document.getElementById("login_button").addEventListener("click", () => {
 	document.getElementById("login").style.opacity = 0;
+	setTimeout(() => {
+		document.getElementById("login").style.display = "none";
+	}, 200);
 });
