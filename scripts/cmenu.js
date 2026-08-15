@@ -5,8 +5,8 @@ function cmenu(event) {
 	celem.style.left = event.clientX + "px";
 	celem.style.top = event.clientY + "px";
 }
-document.body.addEventListener("contextmenu", cmenu);
-document.body.addEventListener("click", () => {
+document.getElementById("desktop").addEventListener("contextmenu", cmenu);
+document.getElementById("desktop").addEventListener("click", () => {
 	const celem = document.getElementById("contextmenu");
 	fadeOut(celem);
 });
