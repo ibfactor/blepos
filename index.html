@@ -8,11 +8,57 @@
 	</head>
 	<body>
 
+		<div id="desktop">
+			
+			<div id="toolbar">
+				<h5>BlepOS</h5>
+
+				<div>
+					<p id="toolbar_dt"></p>
+				</div>
+			</div>
+
+
+			<div id="dock">
+				<button class="app orange">
+					<i class="fas fa-folder"></i>
+				</button>
+				<button class="app blue">
+					<i class="fas fa-globe"></i>
+				</button>
+				<button class="app red">
+					<i class="fas fa-map-pin"></i>
+				</button>
+				<button class="app green">
+					<i class="fas fa-calculator"></i>
+				</button>
+				<button class="app grey">
+					<i class="fas fa-camera"></i>
+				</button>
+				<button class="app black">
+					<i class="fas fa-terminal"></i>
+				</button>
+				<button class="app grey">
+					<i class="fas fa-cogs"></i>
+				</button>
+			</div>
+
+		</div>
+
+
+		<div id="contextmenu">
+			<ul>
+				<li>+<i class="fas fa-folder"></i> New Folder</li>
+				<li>+<i class="fas fa-file"></i> New File</li>
+			</ul>
+		</div>
+
+
 		<div id="login">
 			<div>
 				<h1>Welcome back!</h1>
 				<span><i class="fas fa-circle-notch fa-spin"></i></span>
-				<button>Login</button>
+				<button id="login_button">Login</button>
 			</div>
 		</div>
 
@@ -24,6 +70,9 @@
 			</div>
 		</div>
 
+		<script src="/scripts/ui_helper.js"></script>
 		<script src="/scripts/startup.js"></script>
+		<script src="/scripts/main.js"></script>
+		<script src="/scripts/cmenu.js"></script>
 	</body>
 </html>
