@@ -34,3 +34,7 @@ setTimeout(() => {
 	document.querySelector("#login span").style.opacity = "0";
 	document.querySelector("#login button").style.opacity = "1";
 }, 6300);
+
+document.getElementById("login_button").addEventListener("click", () => {
+	document.getElementById("login").style.opacity = 0;
+});
