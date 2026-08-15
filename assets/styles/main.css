@@ -159,6 +159,7 @@ button {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	backdrop-filter: blur(3px);
+	text-align: center;
 }
 .app {
 	padding: 15px;
