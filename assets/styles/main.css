@@ -6,12 +6,13 @@
 body {
 	background-color: black;
 	font-family: Montserrat, sans-serif;
+	user-select: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: "Cal Sans", sans-serif;
 }
-#startup, #login {
+#startup, #login, #desktop {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -82,4 +83,114 @@ button {
 	transform: translateX(-50%);
 	opacity: 1;
 	transition: 0.25s all;
+}
+
+#desktop {
+	background-image: url(/assets/img/bg5.avif);
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#toolbar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background-color: rgba(50, 50, 50, 0.15);
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+#toolbar * {
+	margin: 0;
+}
+
+#toolbar div {
+	position: absolute;
+	right: 30px;
+	top: 5px;
+	text-align: right;
+	font-size: 13.5px;
+}
+
+#contextmenu {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	background-color: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(50px);
+	border-radius: 5px;
+	border: 1px solid #4a4a4a;
+	font-family: "JetBrains Mono";
+	overflow: hidden;
+	opacity: 0;
+	display: none;
+	transition: 0.2s opacity;
+}
+#contextmenu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#contextmenu li {
+	padding: 10px;
+	border-bottom: 1px solid #4a4a4a;
+}
+#contextmenu li:nth-last-of-type(1) {
+	border-bottom: 0px;
+}
+#contextmenu li:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+	cursor: pointer;
+}
+
+
+#dock {
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgba(0, 0, 0, 0.25);
+	border-radius: 20px;
+	padding: 8px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	backdrop-filter: blur(3px);
+}
+.app {
+	padding: 15px;
+	padding-left: 17px;
+	padding-right: 17px;
+	font-size: 18px;
+	border-radius: 10px;
+	margin-left: 2px;
+	margin-right: 2px;
+	width: 55px;
+	text-align: center;
+}
+.app:hover {
+	scale: 1.25;
+	transition: 0.25s all;
+}
+
+.app.black {
+	background-color: rgba(0, 0, 0, 0.6);
+}
+.app.grey {
+	background-color: rgba(50, 50, 50, 0.6);
+}
+.app.orange {
+	background-color: rgba(255, 165, 0, 0.6);
+}
+.app.blue {
+	background-color: rgba(0, 165, 200, 0.6);
+}
+.app.green {
+	background-color: rgba(0, 200, 165, 0.6);
+}
+.app.red {
+	background-color: rgba(200, 82, 82, 0.6);
 }
