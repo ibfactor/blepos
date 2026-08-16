@@ -18,6 +18,7 @@ function forceQuitAllCMenus(except_el = null) {
 function toggleApp(event) {
 	if (window.activeCMenuEl.classList.contains("active")) {
 		window.activeCMenuEl.classList.remove("active");
+		quitAllWindows(window.activeCMenuEl.getAttribute("data-id"));
 	}
 	else {
 		window.activeCMenuEl.click();

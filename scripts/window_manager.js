@@ -1,3 +1,11 @@
+function quitAllWindows(appId) {
+	document.querySelectorAll(".w-" + appId).forEach((win) => {
+		fadeOut(win);
+		setTimeout(() => {
+			win.remove();
+		}, 200);
+	});
+}
 function sendAllWindowsToBack() {
 	document.querySelectorAll(".window").forEach((win) => {
 		win.classList.remove("win-front");
