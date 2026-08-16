@@ -1,5 +1,5 @@
 function newWin(id) {
-	launchWindow("Calculator", id);
+	launchApp(id, true);
 }
 
 function closedApp(win) {
@@ -15,10 +15,18 @@ function closedApp(win) {
 	}, 250);
 }
 
-function launchApp(id) {
+function launchApp(id, bypass = false) {
 	if (id == "calculator") {
-		if (!windowExists(id)) {
-			launchWindow("Calculator", id, "/apps/calculator");
+		if (!windowExists(id) || bypass) {
+			launchWindow("Calculator", "calculator", "/apps/calculator", 200, 220);
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
+	else if (id == "camera") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("Camera", "camera", "/apps/camera", 400, 300);
 		}
 		else {
 			bringWindowsToFront(id);
@@ -32,5 +40,3 @@ document.querySelectorAll(".app").forEach((app, index) => {
 		launchApp(app.getAttribute("data-id"));
 	});
 });
-
-launchWindow("Calculator", "calculator", "/apps/calculator", 200, 220);
