@@ -24,6 +24,11 @@ function toggleApp(event) {
 	}
 	forceQuitAllCMenus();
 }
+function newWinApp(event) {
+	const appId = window.activeCMenuEl.getAttribute("data-id");
+	newWin(appId);
+	forceQuitAllCMenus();
+}
 window.activeCMenuEl = null;
 function cmenu(event) {
 	event.preventDefault();
@@ -37,7 +42,7 @@ function cmenu(event) {
 		}
 		else {
 			document.querySelectorAll("#contextmenu_dock li")[0].classList.add("disabled");
-			document.querySelectorAll("#contextmenu_dock li")[1].innerHTML = `-<i class="fas fa-window-maximize"></i> Open App`;
+			document.querySelectorAll("#contextmenu_dock li")[1].innerHTML = `+<i class="fas fa-window-maximize"></i> Open App`;
 		}
 	}
 	else if (event.target.closest("#dock")) {
@@ -67,6 +72,6 @@ document.querySelectorAll(".contextmenu").forEach((el) => {
 		event.preventDefault();
 	});
 });
-document.querySelectorAll("#contextmenu_dock li")[1].addEventListener("click", toggleApp)
-
+document.querySelectorAll("#contextmenu_dock li")[1].addEventListener("click", toggleApp);
+document.querySelectorAll("#contextmenu_dock li")[0].addEventListener("click", newWinApp);
 
