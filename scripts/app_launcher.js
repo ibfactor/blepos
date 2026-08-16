@@ -20,6 +20,9 @@ function launchApp(id) {
 		if (!windowExists(id)) {
 			launchWindow("Calculator", id);
 		}
+		else {
+			bringWindowsToFront(id);
+		}
 	}
 }
 

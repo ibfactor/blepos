@@ -4,8 +4,9 @@ function sendAllWindowsToBack() {
 	});
 }
 function bringWindowsToFront(appId) {
-	document.querySelectorAll(".w-" + appId).forEach(() => {
+	document.querySelectorAll(".w-" + appId).forEach((win) => {
 		win.classList.add("win-front");
+		win.classList.remove("minimised");
 	});
 }
 function allowFront(win) {
