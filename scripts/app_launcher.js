@@ -18,7 +18,7 @@ function closedApp(win) {
 function launchApp(id) {
 	if (id == "calculator") {
 		if (!windowExists(id)) {
-			launchWindow("Calculator", id);
+			launchWindow("Calculator", id, "/apps/calculator");
 		}
 		else {
 			bringWindowsToFront(id);
@@ -32,3 +32,5 @@ document.querySelectorAll(".app").forEach((app, index) => {
 		launchApp(app.getAttribute("data-id"));
 	});
 });
+
+launchWindow("Calculator", "calculator", "/apps/calculator", 200, 220);

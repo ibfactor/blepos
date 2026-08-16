@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Calculator</title>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+			* {
+				font-family: Montserrat;
+			}
+			html, body {
+				width: 100%;
+			    height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			body {
+				user-select: none;
+			}
+			table {
+				border-collapse: collapse;
+				color: white;
+				table-layout: fixed;
+				width: min(100%, calc(100vh * 200 / 220));
+			    aspect-ratio: 200 / 190;
+			    margin-top: -20px;
+			    height: auto;
+			    container-type: inline-size;
+			}
+			table, td, tr {
+				border: 0.5px solid rgba(255, 255, 255, 0.2);
+				transition: 0.2s all;
+			}
+			td {
+				text-align: center;
+				padding-bottom: 5px;
+				padding-top: 5px;
+				font-size: 7cqw;
+			}
+			#io {
+				text-align: right;
+				padding-right: 5px;
+			}
+
+			td:not(#io):hover {
+				background-color: rgba(255, 255, 255, 0.3);
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+
+		<table>
+			<tr>
+				<td colspan="4" id="io">0</td>
+			</tr>
+			<tr>
+				<td>DEL</td>
+				<td>AC</td>
+				<td>%</td>
+				<td>÷</td>
+			</tr>
+			<tr>
+				<td>7</td>
+				<td>8</td>
+				<td>9</td>
+				<td>×</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>5</td>
+				<td>6</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>+</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>0</td>
+				<td>.</td>
+				<td>=</td>
+			</tr>
+		</table>
+
+		<script>
+			document.querySelectorAll("td:not(#io)").forEach((el) => {
+				el.addEventListener("click", () => {
+					if (el.innerText == "AC") {
+						document.getElementById("io").innerHTML = "0";
+						return;
+					}
+					if (el.innerText == "DEL") {
+						document.getElementById("io").innerHTML = document.getElementById("io").innerHTML.slice(0, -1);
+						if (!document.getElementById("io").innerHTML) {
+							document.getElementById("io").innerHTML = "0";
+							return;
+						}
+						return;
+					}
+					if (el.innerText == "%") {
+					    document.getElementById("io").innerHTML = io.innerHTML += "/100";
+					    return;
+					}
+					if (el.innerText == "=") {
+						document.getElementById("io").innerHTML = eval(document.getElementById("io").innerHTML);
+						return;
+					}
+					document.getElementById("io").innerHTML += el.innerText.replace("×", "*").replace("÷", "/");
+					if (document.getElementById("io").innerHTML.startsWith("0")) {
+						document.getElementById("io").innerHTML = document.getElementById("io").innerHTML.replace("0", "");
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

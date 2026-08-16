@@ -107,7 +107,7 @@ function titleBarButtons(win) {
 	});
 }
 
-function launchWindow(title, id) {
+function launchWindow(title, id, url = "about:blank", width, height) {
 	var likeExists = false;
 	if (windowExists(id)) {
 		likeExists = true;
@@ -119,13 +119,15 @@ function launchWindow(title, id) {
 	win.innerHTML = `<div class="tbar">
 						<span>${title}</span>
 						<span><span></span><span></span><span></span></span>
-					</div>`;
+					</div><iframe src="${url}"></iframe>`;
 
 	if (likeExists) {
 		const prev = document.querySelector(".w-" + id);
 		win.style.top = Number(prev.style.top.replace("px", "")) + 15 + "px";
 		win.style.left = Number(prev.style.left.replace("px", "")) + 15 + "px";
 	}
+	win.style.width = width + "px";
+	win.style.height = height + "px";
 
 	document.getElementById("windows").appendChild(win);
 	win.style.opacity = "0";
@@ -135,4 +137,3 @@ function launchWindow(title, id) {
 	titleBarButtons(win);
 	allowFront(win);
 }
-
