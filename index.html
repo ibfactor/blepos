@@ -20,25 +20,25 @@
 
 
 			<div id="dock">
-				<button class="app orange">
+				<button class="app orange" data-id="files">
 					<i class="fas fa-folder"></i>
 				</button>
-				<button class="app blue">
+				<button class="app blue" data-id="browser">
 					<i class="fas fa-globe"></i>
 				</button>
-				<button class="app red">
+				<button class="app red" data-id="maps">
 					<i class="fas fa-map-pin"></i>
 				</button>
-				<button class="app green">
+				<button class="app green" data-id="calculator">
 					<i class="fas fa-calculator"></i>
 				</button>
-				<button class="app grey">
+				<button class="app grey" data-id="camera">
 					<i class="fas fa-camera"></i>
 				</button>
-				<button class="app black">
+				<button class="app black" data-id="terminal">
 					<i class="fas fa-terminal"></i>
 				</button>
-				<button class="app grey">
+				<button class="app grey" data-id="settings">
 					<i class="fas fa-cogs"></i>
 				</button>
 			</div>
@@ -54,7 +54,7 @@
 		</div>
 
 
-		<div id="login">
+		<div id="login" style="display: none;">
 			<div>
 				<h1>Welcome back!</h1>
 				<span><i class="fas fa-circle-notch fa-spin"></i></span>
@@ -62,7 +62,7 @@
 			</div>
 		</div>
 
-		<div id="startup">
+		<div id="startup" style="display: none;">
 			<div>
 				<img src="/assets/img/blep.png">
 				<p id="startup_line">Initialising...</p>
@@ -70,9 +70,11 @@
 			</div>
 		</div>
 
+
 		<script src="/scripts/ui_helper.js"></script>
 		<script src="/scripts/startup.js"></script>
 		<script src="/scripts/main.js"></script>
 		<script src="/scripts/cmenu.js"></script>
+		<script src="/scripts/app_launcher.js"></script>
 	</body>
 </html>
