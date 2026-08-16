@@ -32,6 +32,14 @@ function launchApp(id, bypass = false) {
 			bringWindowsToFront(id);
 		}
 	}
+	else if (id == "browser") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("Browser", "browser", "/apps/browser", 600, 500);
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
 }
 
 document.querySelectorAll(".app").forEach((app, index) => {
