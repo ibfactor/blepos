@@ -116,7 +116,7 @@ button {
 	font-size: 13.5px;
 }
 
-#contextmenu {
+.contextmenu {
 	position: fixed;
 	top: 10px;
 	left: 10px;
@@ -130,21 +130,24 @@ button {
 	display: none;
 	transition: 0.2s opacity;
 }
-#contextmenu ul {
+.contextmenu ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
-#contextmenu li {
+.contextmenu li {
 	padding: 10px;
 	border-bottom: 1px solid #4a4a4a;
 }
-#contextmenu li:nth-last-of-type(1) {
+.contextmenu li:nth-last-of-type(1) {
 	border-bottom: 0px;
 }
-#contextmenu li:hover {
+.contextmenu li:not(.disabled):hover {
 	background-color: rgba(255, 255, 255, 0.2);
 	cursor: pointer;
+}
+.contextmenu li.disabled, .contextmenu li.disabled * {
+	color: rgba(255, 255, 255, 0.5);
 }
 
 
@@ -173,9 +176,11 @@ button {
 	width: 55px;
 	text-align: center;
 	position: relative;
+	scale: 1;
+	transition: 0.25s all;
 }
 .app:hover {
-	scale: 1.25;
+	scale: 1.1;
 	transition: 0.25s all;
 }
 
