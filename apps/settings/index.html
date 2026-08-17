@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Settings</title>
+		<link rel="stylesheet" href="/assets/styles/main.css">
+		<style>
+
+			#sidebar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 20%;
+				max-width: 200px;
+				border-right: 0.5px solid #4a4a4a;
+				height: 100%;
+				padding-top: 0;
+			}
+			ul {
+				padding: 0px;
+				margin: 0;
+			}
+			ul, li {
+				list-style: none;
+				padding: 5px;
+			}
+			li {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				font-size: 13px;
+				cursor: pointer;
+				transition: all 0.2s;
+			}
+			li:hover, li.active {
+				background-color: rgba(255, 255, 255, 0.2);
+			}
+			li:nth-of-type(1) {
+				border-bottom: 0.5px solid #4a4a4a;
+			}
+			input {
+				background-color: rgba(0, 0, 0, 0);
+				color: white;
+				width: calc(100% - 8px);
+				border: 0;
+			}
+			input:focus {
+				outline: 0;
+			}
+			li:has(input:focus) {
+				background-color: rgba(255, 255, 255, 0.2);
+			}
+			#main {
+				position: fixed;
+				width: max(80%, 100% - 200px);
+				left: min(20%, 200px);
+				right: 0;
+				top: 0;
+				height: 100%;
+			}
+			#main * {
+				margin-left: 10px;
+			}
+			#main h5 {
+				margin-top: -5px;
+			}
+			#main img {
+				width: calc(50% - 20px);
+				aspect-ratio: 677 / 379;
+				border-radius: 5px;
+				margin-bottom: 10px;
+				cursor: pointer;
+			}
+			#main, #main > div {
+				overflow-y: scroll;
+			}
+
+			img.selected {
+				outline: 2px solid lightgreen;
+			}
+			#main > div {
+				padding-bottom: 20px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="sidebar">
+			<ul>
+				<li><input type="text" placeholder="Search..."></li>
+				<li data-id="personalisation" class="active">Personalisation</li>
+			</ul>
+		</div>
+		<div id="main">
+			<div data-id="personalisation">
+				<h3>Personalisation</h3>
+				<h5>Background</h5>
+				<img src="/assets/img/bg5.avif" class="selected bg">
+				<img src="/assets/img/bg4.jpg" class="bg">
+				<img src="/assets/img/bg3.png" class="bg">
+				<img src="/assets/img/bg2.jpg" class="bg">
+				<img src="/assets/img/bg.webp" class="bg">
+			</div>
+		</div>
+
+		<script>
+			document.querySelectorAll("ul > li:not(li:has(input))").forEach((el) => {
+				el.addEventListener("click", () => {
+					el.classList.add("active");
+				});
+			});
+
+			document.querySelectorAll(".bg").forEach((el) => {
+				el.addEventListener("click", () => {
+					document.querySelectorAll(".bg").forEach((el) => {
+						el.classList.remove("selected");
+					});
+					el.classList.add("selected");
+					localStorage.setItem("custom_bg", el.src)
+				});
+			});
+		</script>
+	</body>
+</html>

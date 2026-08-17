@@ -40,6 +40,14 @@ function launchApp(id, bypass = false) {
 			bringWindowsToFront(id);
 		}
 	}
+	else if (id == "settings") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("Settings", "settings", "/apps/settings", 600, 500);
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
 }
 
 document.querySelectorAll(".app").forEach((app, index) => {
