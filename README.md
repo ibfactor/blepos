@@ -6,6 +6,8 @@
 <p>A ready to use version can be accessed at https://blepos.ibfactor.com</p>
 
 ### Features (WebOS 1)
+- App minimising
+- App fullscreen
 - Camera App
 - Calculator App
 - Web Browser
