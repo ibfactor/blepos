@@ -44,8 +44,8 @@ function dragElement(win) {
     e.preventDefault();
     pos3 = e.clientX;
     pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    document.onmousemove = elementDrag;
+    document.addEventListener("mouseup", closeDragElement);
+    document.addEventListener("mousemove", elementDrag);
     win.children[0].style.cursor = "grabbing";
   }
 
@@ -74,8 +74,8 @@ function dragElement(win) {
   }
 
   function closeDragElement() {
-    document.onmouseup = null;
-    document.onmousemove = null;
+    document.removeEventListener("mouseup", closeDragElement);
+    document.removeEventListener("mousemove", elementDrag);
     win.children[0].style.cursor = "grab";
   }
 }
