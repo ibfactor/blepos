@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Settings</title>
+		<link rel="stylesheet" href="/assets/styles/main.css">
+		<style>
+			* {
+				font-family: "Jetbrains Mono";
+			}
+			#main {
+				overflow-y: scroll;
+			}
+			#input {
+				border-top: 1px solid #4a4a4a;
+				margin-top: 2px;
+			}
+			#input input {
+				background-color: rgba(0, 0, 0, 0);
+				color: white;
+				width: calc(100% - 30px);
+				border: 0;
+			}
+			#input input:focus {
+				outline: 0;
+			}
+			#main span {
+				display: inline-block;
+				text-align: left;
+				position: absolute;
+				left: 200px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="main">
+			Welcome to the BlepOS terminal.<br>
+			Type "help" to see a list of available commands.<br>
+		</div>
+
+		<div id="input">
+			>
+			<input type="text" placeholder="_">
+		</div>
+
+		<script>
+			document.querySelector("#input input").addEventListener("keyup", (event) => {
+				if (event.key == "Enter") {
+					const v = document.querySelector("#input input").value.toLowerCase();
+					document.querySelector("#input input").value = "";
+					document.querySelector("#main").innerText += `> ${v}`;
+					document.querySelector("#main").innerHTML += "<br>";
+					if (v == "help") {
+						document.querySelector("#main").innerHTML += `COMMANDS<hr>clear<span>Clears terminal output</span><br>echo [string] <span>Print a string</span><br>time <span>Show current time</span><br>bg-list <span>List backgrounds</span><br>bg-set [bg_id] <span>Set background</span><br>`;
+					}
+					else if (v == "clear") {
+						document.querySelector("#main").innerHTML = "";
+					}
+					else if (v.startsWith("echo ")) {
+						document.querySelector("#main").innerText += v.replace("echo ", "");
+						document.querySelector("#main").innerHTML += "<br>";
+					}
+					else if (v == "time") {
+						document.querySelector("#main").innerHTML += parent.window.dt.replaceAll("&nbsp;", "") + "<br>";
+					}
+					else if (v == "bg-list") {
+						document.querySelector("#main").innerHTML += `Backgrounds<hr>bg.png<br>bg2.jpg<br>bg3.png<br>bg4.jpg<br>bg5.avif<br>`;
+					}
+					else if (v.startsWith("bg-set")) {
+						const el = v.split("bg-set ")[1];
+						console.log(el);
+						localStorage.setItem("custom_bg", "/assets/img/" + el);
+					}
+					else {
+						document.querySelector("#main").innerText += "Unrecognised command " + v + ".";
+						document.querySelector("#main").innerHTML += "<br>";
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
