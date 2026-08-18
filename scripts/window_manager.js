@@ -130,7 +130,7 @@ function launchWindow(title, id, url = "about:blank", width, height, extra) {
 	win.style.height = height + "px";
 
 	win.querySelector("iframe").addEventListener("load", () => {
-			if (extra && !win.querySelector("iframe").contentWindow.location.href.includes(extra)) {
+			if (extra && !decodeURIComponent(win.querySelector("iframe").contentWindow.location.href).includes(extra)) {
 				win.querySelector("iframe").contentWindow.location.href += "?p=" + extra;
 			}
 	});

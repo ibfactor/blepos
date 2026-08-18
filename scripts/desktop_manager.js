@@ -2,6 +2,9 @@ function dragIcon(win, x = false) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   win.onmousedown = dragMouseDown;
 
+  const winOriginalLeft = win.offsetLeft;
+  const winOriginalTop = win.offsetTop;
+
   function dragMouseDown(e) {
     e = e || window.event;
     e.preventDefault();
@@ -11,15 +14,6 @@ function dragIcon(win, x = false) {
     document.querySelector("table").addEventListener("mousemove", elementDrag);
     win.style.cursor = "grabbing";
     win.style.opacity = 0.5;
-
-    if (x) {
-
-      if (win.getAttribute("data-type") == "folder") {
-        const path = win.getAttribute("data-path");
-        launchApp("files", true, path);
-      }
-
-    }
   }
 
   function elementDrag(e) {
@@ -32,6 +26,7 @@ function dragIcon(win, x = false) {
 
     win.style.top = (win.offsetTop - pos2) + "px";
     win.style.left = (win.offsetLeft - pos1) + "px";
+
     win.style.cursor = "grabbing";
     win.style.opacity = 0.5;
   }
@@ -50,10 +45,27 @@ function dragIcon(win, x = false) {
       }
     });
     win.style.opacity = 1;
+
+    if ((Math.abs(winOriginalLeft - win.offsetLeft) < 10) && (Math.abs(winOriginalTop - win.offsetTop) < 10)) {
+      if (x) {
+
+        if (win.getAttribute("data-type") == "folder") {
+          const path = win.getAttribute("data-path");
+          launchApp("files", true, path);
+        }
+
+      }
+    }
   }
 }
 
-
+function getIcon(file) {
+  var item = "/icons/folder.png";
+  if (file == "Trash") {
+    item = "/icons/trash.png";
+  }
+  return item;
+}
 
 preloadedFiles["desktop"].forEach((file, index) => {
   var item = "/icons/folder.png";
@@ -68,6 +80,5 @@ preloadedFiles["desktop"].forEach((file, index) => {
   document.querySelectorAll(".d-icon").forEach((item) => {
     dragIcon(item, true);
   });
-
 });
 

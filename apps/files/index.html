@@ -181,8 +181,9 @@
 			});
 
 			if (location.href.includes("?p=")) {
-				document.querySelector(`[data-path="/${location.href.split("?p=")[1].split("/")[1]}/"]`).click();
-				document.querySelector("input").value = location.href.split("?p=")[1];
+				const val = decodeURIComponent(location.href.split("?p=")[1]);
+				document.querySelector(`[data-path="/${val.split("/")[1]}/"]`).click();
+				document.querySelector("input").value = val;
 				getFiles();
 			}
 		</script>

@@ -359,7 +359,7 @@ td:hover {
 	image-rendering: pixelated;
 	height: 39px;
 }
-.d-icon span {
+.d-icon span, .d-icon input {
 	display: inline-block;
 	font-size: 13px;
 	position: absolute;
@@ -368,5 +368,15 @@ td:hover {
 	transform: translateX(-50%);
 	-webkit-text-stroke: 0.5px black;
 	text-stroke: 0.5px black;
+	font-weight: 800;
+	width: calc(100% - 4px);
 }
-
+.d-icon input {
+	color: black;
+	font-weight: 400;
+}
+.d-icon span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
