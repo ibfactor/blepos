@@ -353,13 +353,11 @@ td:hover {
 	text-align: center;
 	position: absolute;
 	cursor: grab;
-    touch-action: none;
     top: 0px;
 }
 .d-icon img {
 	image-rendering: pixelated;
 	height: 39px;
-	touch-action: none;
 }
 .d-icon span {
 	display: inline-block;
@@ -370,6 +368,5 @@ td:hover {
 	transform: translateX(-50%);
 	-webkit-text-stroke: 0.5px black;
 	text-stroke: 0.5px black;
-	touch-action: none;
 }
 

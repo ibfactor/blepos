@@ -179,6 +179,12 @@
 					getFiles();
 				});
 			});
+
+			if (location.href.includes("?p=")) {
+				document.querySelector(`[data-path="/${location.href.split("?p=")[1].split("/")[1]}/"]`).click();
+				document.querySelector("input").value = location.href.split("?p=")[1];
+				getFiles();
+			}
 		</script>
 	</body>
 </html>

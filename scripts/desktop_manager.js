@@ -1,4 +1,4 @@
-function dragIcon(win) {
+function dragIcon(win, x = false) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   win.onmousedown = dragMouseDown;
 
@@ -11,6 +11,15 @@ function dragIcon(win) {
     document.querySelector("table").addEventListener("mousemove", elementDrag);
     win.style.cursor = "grabbing";
     win.style.opacity = 0.5;
+
+    if (x) {
+
+      if (win.getAttribute("data-type") == "folder") {
+        const path = win.getAttribute("data-path");
+        launchApp("files", true, path);
+      }
+
+    }
   }
 
   function elementDrag(e) {
@@ -44,6 +53,21 @@ function dragIcon(win) {
   }
 }
 
-document.querySelectorAll(".d-icon").forEach((item) => {
-  dragIcon(item);
+
+
+preloadedFiles["desktop"].forEach((file, index) => {
+  var item = "/icons/folder.png";
+  if (file == "Trash") {
+    item = "/icons/trash.png";
+  }
+  document.querySelectorAll("#desktop_files td")[index].innerHTML = `<div class="d-icon" data-type="folder" data-path="/desktop/${file}">
+    <img src="${item}">
+    <span>${file}</span>
+  </div>`;
+
+  document.querySelectorAll(".d-icon").forEach((item) => {
+    dragIcon(item, true);
+  });
+
 });
+

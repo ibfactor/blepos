@@ -107,7 +107,7 @@ function titleBarButtons(win) {
 	});
 }
 
-function launchWindow(title, id, url = "about:blank", width, height) {
+function launchWindow(title, id, url = "about:blank", width, height, extra) {
 	var likeExists = false;
 	if (windowExists(id)) {
 		likeExists = true;
@@ -128,6 +128,12 @@ function launchWindow(title, id, url = "about:blank", width, height) {
 	}
 	win.style.width = width + "px";
 	win.style.height = height + "px";
+
+	win.querySelector("iframe").addEventListener("load", () => {
+			if (extra && !win.querySelector("iframe").contentWindow.location.href.includes(extra)) {
+				win.querySelector("iframe").contentWindow.location.href += "?p=" + extra;
+			}
+	});
 
 	document.getElementById("windows").appendChild(win);
 	win.style.opacity = "0";

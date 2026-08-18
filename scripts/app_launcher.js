@@ -15,7 +15,7 @@ function closedApp(win) {
 	}, 250);
 }
 
-function launchApp(id, bypass = false) {
+function launchApp(id, bypass = false, extra = null) {
 	if (id == "calculator") {
 		if (!windowExists(id) || bypass) {
 			launchWindow("Calculator", "calculator", "/apps/calculator", 200, 220);
@@ -58,7 +58,7 @@ function launchApp(id, bypass = false) {
 	}
 	else if (id == "files") {
 		if (!windowExists(id) || bypass) {
-			launchWindow("Files", "files", "/apps/files", 600, 500);
+			launchWindow("Files", "files", "/apps/files", 600, 500, extra);
 		}
 		else {
 			bringWindowsToFront(id);

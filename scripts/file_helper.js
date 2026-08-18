@@ -1,4 +1,4 @@
-if (!localStorage.getItem("files")) {
+if (localStorage.getItem("files")) {
 	var preloadedFiles = JSON.parse(localStorage.getItem("files"));
 }
 else {
