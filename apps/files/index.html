@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Settings</title>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="/assets/styles/main.css">
+		<style>
+
+			#sidebar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 20%;
+				max-width: 200px;
+				border-right: 0.5px solid #4a4a4a;
+				height: 100%;
+				padding-top: 0;
+			}
+			ul {
+				padding: 0px;
+				margin: 0;
+			}
+			ul, li {
+				list-style: none;
+				padding: 5px;
+			}
+			li {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				font-size: 13px;
+				cursor: pointer;
+				transition: all 0.2s;
+			}
+			li:hover, li.active {
+				background-color: rgba(255, 255, 255, 0.2);
+			}
+			input {
+				background-color: rgba(0, 0, 0, 0);
+				color: white;
+				width: calc(100% - 8px);
+				border: 0;
+			}
+			input:focus {
+				outline: 0;
+			}
+			#main {
+				position: fixed;
+				width: max(80%, 100% - 200px);
+				left: min(20%, 200px);
+				right: 0;
+				top: 0;
+				height: 100%;
+			}
+			#main * {
+				margin-left: 10px;
+			}
+			#main h5 {
+				margin-top: -5px;
+			}
+			#main img {
+				width: calc(50% - 20px);
+				aspect-ratio: 677 / 379;
+				border-radius: 5px;
+				margin-bottom: 10px;
+				cursor: pointer;
+			}
+			#main, #main > div {
+				overflow-y: scroll;
+			}
+
+			img.selected {
+				outline: 2px solid lightgreen;
+			}
+			#main > div {
+				padding-bottom: 20px;
+			}
+
+			input {
+				font-family: "Jetbrains Mono";
+				background-color: rgba(255, 255, 255, 0.1);
+				position: absolute;
+				left: -9px;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 5px;
+				padding-right: 5px;
+				width: calc(100% - 10px);
+			}
+
+			#main > div {
+				padding-top: 30px;
+			}
+
+			th {
+				text-align: left;
+			}
+
+			table {
+				width: 100%;
+			}
+
+			td {
+				padding: 5px;
+				transition: all 0.1s;
+			}
+			tr:hover td {
+				background-color: rgba(255, 255, 255, 0.2);
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="sidebar">
+			<ul>
+				<li data-path="/apps/" class="active"><i class="fas fa-folder"></i>&nbsp;&nbsp;Apps</li>
+				<li data-path="/desktop/"><i class="fas fa-folder"></i>&nbsp;&nbsp;Desktop</li>
+				<li data-path="/downloads/"><i class="fas fa-folder"></i>&nbsp;&nbsp;Downloads</li>
+				<li data-path="/documents/"><i class="fas fa-folder"></i>&nbsp;&nbsp;Documents</li>
+			</ul>
+		</div>
+		<div id="main">
+			<input type="text" value="/apps/">
+			<div data-path="/apps/">
+				<table id="files">
+					<tr>
+						<th>Name</th>
+						<th>Kind</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<script>
+			const kinds = {
+				"app": "blepOS application",
+				"txt": "text file",
+				"mp4": "MPEG-4 video",
+				"png": "PNG image"
+			};
+
+
+			function getFiles() {
+
+				const current_path = document.querySelector("input").value;
+
+				const files = parent.preloadedFiles[current_path.replace(/^\/+|\/+$/g, '')];
+				document.getElementById("files").innerHTML = `<tr>
+					<th>Name</th>
+					<th>Kind</th>
+				</tr>`;
+				files.forEach((file, index) => {
+					const kind = kinds[file.split(".").pop()] || "Folder";
+					document.getElementById("files").innerHTML += `<tr data-i="${index}" onclick="parent.launchApp('${file.split(".")[0]}');">
+						<td>${file}</td>
+						<td>${kind}</td>
+					</tr>`;
+					if (kind == "Folder") {
+						document.querySelector("tr[data-i='" + index + "']").addEventListener("click", () => {
+							document.querySelector("input").value += file += "/";
+							getFiles();
+						});
+					}
+				});
+
+			}
+
+			getFiles();
+
+			document.querySelectorAll("ul > li:not(li:has(input))").forEach((el) => {
+				el.addEventListener("click", () => {
+					document.querySelectorAll("ul > li:not(li:has(input))").forEach((el) => {
+						el.classList.remove("active");
+					});
+					el.classList.add("active");
+					document.querySelector("input").value = el.getAttribute("data-path");
+					getFiles();
+				});
+			});
+		</script>
+	</body>
+</html>

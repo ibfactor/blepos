@@ -56,6 +56,14 @@ function launchApp(id, bypass = false) {
 			bringWindowsToFront(id);
 		}
 	}
+	else if (id == "files") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("Files", "files", "/apps/files", 600, 500);
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
 }
 
 document.querySelectorAll(".app").forEach((app, index) => {
