@@ -184,6 +184,9 @@
 				const val = decodeURIComponent(location.href.split("?p=")[1]);
 				document.querySelector(`[data-path="/${val.split("/")[1]}/"]`).click();
 				document.querySelector("input").value = val;
+				if (!document.querySelector("input").value.endsWith("/")) {
+					document.querySelector("input").value += "/";
+				}
 				getFiles();
 			}
 		</script>
