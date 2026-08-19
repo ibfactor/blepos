@@ -38,6 +38,26 @@ function dragIcon(win, x = false) {
     const elems = document.elementsFromPoint(Number(win.style.left.replace("px", "")), Number(win.style.top.replace("px", "")) + 50);
     elems.forEach((item) => {
       if (item.tagName.toLowerCase() == "td") {
+        if (item.children.length > 0 && item.children[0].tagName.toLowerCase() == "div" && item.children[0].getAttribute("data-type") == "folder" && item.children[0] != win) {
+          preloadedFiles["desktop"] = preloadedFiles["desktop"].filter((item) => { return (item !== win.children[1].innerText) });
+          if (!preloadedFiles["desktop/" + item.children[0].children[1].innerText] || !preloadedFiles["desktop/" + item.children[0].children[1].innerText][0]) {
+            preloadedFiles["desktop/" + item.children[0].children[1].innerText] = [];
+          }
+          preloadedFiles["desktop/" + item.children[0].children[1].innerText].push(win.children[1].innerText);
+          Object.keys(preloadedFiles).forEach((key) => {
+            if (key.startsWith("desktop/")) {
+              const relative = key.split("desktop/")[1];
+              if (relative == win.children[1].innerText || relative.startsWith(`${win.children[1].innerText}/`)) {
+
+                preloadedFiles[key.replace("/" + win.children[1].innerText, "/" + item.children[0].children[1].innerText + "/" + win.children[1].innerText)] = preloadedFiles[key];
+                delete preloadedFiles[key];
+
+              }
+            }
+          });
+          win.remove();
+          return;
+        }
         item.appendChild(win);
         const rect = item.getBoundingClientRect();
         win.style.top = (rect.top - 26) + "px";
