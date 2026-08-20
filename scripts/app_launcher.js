@@ -64,6 +64,14 @@ function launchApp(id, bypass = false, extra = null) {
 			bringWindowsToFront(id);
 		}
 	}
+	else if (id == "ace") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("AceEditor", "ace", "/apps/ace", 600, 500);
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
 }
 
 document.querySelectorAll(".app").forEach((app, index) => {

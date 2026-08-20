@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>ACE in Action</title>
+<style type="text/css" media="screen">
+    @import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+    #editor { 
+        position: absolute;
+        top: 25px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: calc(100% - 45px);
+    }
+    * {
+        font-family: "JetBrains Mono";
+    }
+    #toolbar {
+        background-color: rgba(5, 5, 10, 0.6);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        color: white;
+        padding: 0;
+        padding-bottom: 2.5px;
+        padding-left: 2.5px;
+    }
+    a {
+        color: white;
+        text-decoration: none;
+        transition: 0.2s all;
+
+        padding-bottom: 2.5px;
+        padding-top: 2.5px;
+        padding-left: 5px;
+        padding-right: 5px;
+
+        font-size: 11px;
+
+        height: 100%;
+        margin: 0;
+
+        display: inline-block;
+    }
+    a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    ul {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        color: white;
+        z-index: 90;
+        background-color: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        padding: 0;
+        list-style: none;
+        display: inline-block;
+        width: 110px;
+        overflow: hidden;
+        border-radius: 0px 0px 2px 2px;
+        border-top: 0;
+    }
+    li {
+        display: inline-block;
+        padding: 5px;
+        width: 100%;
+    }
+    li:hover {
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    ul:nth-of-type(2) {
+        left: 48px;
+        opacity: 0;
+        display: none;
+        transition: all 0.2s;
+    }
+    ul:nth-of-type(1) {
+        left: 2.5px;
+        opacity: 0;
+        display: none;
+        transition: all 0.2s;
+    }
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+    <a href="#">File</a>
+    <a href="#">Mode</a>
+</div>
+<div id="editor"></div>
+    
+<ul>
+    <li>Open</li>
+    <li>Save</li>
+</ul>
+
+<ul>
+    <li data-type="text">Plain Text</li>
+    <li data-type="markdown">Markdown</li>
+    <li data-type="javascript">JavaScript</li>
+    <li data-type="python">Python</li>
+    <li data-type="html">HTML</li>
+    <li data-type="css">CSS</li>
+</ul>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.44.0/ace.js" integrity="sha512-+dWoJ4nMR1zflFH9wM1ZaI8waJi8iGlGuTnQrEZ7CrjVS3rpgE9b06SLIdLUjieiYodMEl8tUYtcVgXXL0/e8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/text");
+
+    function toggleFade(elem) {
+
+        if (elem.style.display == "none" || !elem.style.display || elem.style.opacity == "0") {
+            elem.style.display = "block";
+            setTimeout(() => {
+                elem.style.opacity = "1";
+            }, 200);
+        }
+        else {
+            elem.style.opacity = "0";
+            setTimeout(() => {
+                elem.style.display = "block";
+            }, 200);
+        }
+
+    }
+
+    document.querySelectorAll("a").forEach((el) => {
+        el.addEventListener("click", (event) => {
+            event.preventDefault();
+            if (el.innerText.includes("File")) {
+                toggleFade(document.querySelectorAll("ul")[0]);
+            }
+            else {
+                toggleFade(document.querySelectorAll("ul")[1]);
+            }
+        });
+    });
+
+    document.querySelectorAll("li").forEach((el) => {
+        el.addEventListener("click", (event) => {
+            if (el.innerText == "Open" || el.innerText == "Save") return;
+
+             toggleFade(el.parentElement);
+
+
+            editor.session.setMode("ace/mode/" + el.getAttribute("data-type"));
+        });
+    });
+</script>
+</body>
+</html>
