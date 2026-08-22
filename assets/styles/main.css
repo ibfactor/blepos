@@ -166,6 +166,11 @@ button {
 	text-align: center;
 	overflow: hidden;
 }
+#non_pinned {
+	display: inline-block;
+	border-left: 1px solid rgba(255, 255, 255, 0.1);
+	padding-left: 6px;
+}
 .app {
 	padding: 15px;
 	padding-left: 17px;
@@ -202,6 +207,12 @@ button {
 }
 .app.red {
 	background-color: rgba(200, 82, 82, 0.6);
+}
+#non_pinned .app:not(.active) {
+	display: none;
+}
+#non_pinned:not(div:has(.app.active)) {
+	display: none;
 }
 
 
@@ -305,6 +316,9 @@ button {
 	background-color: rgba(255, 255, 255, 0.1);
 	filter: grayscale(80%);
 }
+.window {
+	z-index: 24;
+}
 .window.win-front {
 	z-index: 25;
 }
@@ -361,7 +375,7 @@ td:hover {
 }
 .d-icon span, .d-icon input {
 	display: inline-block;
-	font-size: 13px;
+	font-size: 12px;
 	position: absolute;
 	bottom: -2px;
 	left: 50%;

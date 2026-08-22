@@ -9,7 +9,10 @@
 	<body>
 
 		<div id="desktop">
-			
+
+			<div id="windows">
+			</div>
+
 			<div id="desktop_files">
 				<table>
 					<tr>
@@ -847,12 +850,6 @@
 				</table>
 			</div>
 
-
-			<div id="windows">
-
-			</div>
-
-
 			<div id="toolbar">
 				<h5>BlepOS</h5>
 
@@ -883,6 +880,11 @@
 				<button class="app grey" data-id="settings">
 					<i class="fas fa-cogs"></i>
 				</button>
+				<div id="non_pinned">
+					<button class="app orange" data-id="doom">
+						<i class="fas fa-meteor"></i>
+					</button>
+				</div>
 			</div>
 
 		</div>
@@ -903,7 +905,7 @@
 		</div>
 
 
-		<div id="login" style="display:none">
+		<div id="login">
 			<div>
 				<h1>Welcome back!</h1>
 				<span><i class="fas fa-circle-notch fa-spin"></i></span>
@@ -911,7 +913,7 @@
 			</div>
 		</div>
 
-		<div id="startup" style="display:none">
+		<div id="startup">
 			<div>
 				<img src="/assets/img/blep.png">
 				<p id="startup_line">Initialising...</p>

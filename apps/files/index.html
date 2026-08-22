@@ -109,6 +109,20 @@
 				background-color: rgba(255, 255, 255, 0.2);
 				cursor: pointer;
 			}
+
+			#main td img {
+				width: 20px;
+				aspect-ratio: auto;
+				display: inline-block;
+				vertical-align: top;
+				margin-right: 5px;
+			}
+
+			#main td input {
+				margin-left: 80px;
+				background-color: rgba(255, 255, 255, 0.5);
+				width: 100px;
+			}
 		</style>
 	</head>
 	<body>
@@ -135,8 +149,11 @@
 
 		<div id="contextmenu" class="contextmenu">
 			<ul>
+				<li class="disabled">+<i class="fas fa-window-maximize"></i> Open</li>
+				<li class="disabled">±<i class="fas fa-text-width"></i> Rename</li>
 				<li class="disabled">+<i class="fas fa-folder"></i> New Folder</li>
 				<li class="disabled">+<i class="fas fa-file"></i> New File</li>
+				<li class="disabled">-<i class="fas fa-trash"></i> Trash</li>
 			</ul>
 		</div>
 
@@ -161,12 +178,17 @@
 				</tr>`;
 				files.forEach((file, index) => {
 					const kind = kinds[file.split(".").pop()] || "Folder";
-					document.getElementById("files").innerHTML += `<tr data-i="${index}" onclick="parent.launchApp('${file.split(".")[0]}');">
-						<td>${file}</td>
+					const el = document.createElement("tr");
+					el.innerHTML = `
+						<td><img src="${parent.getIcon(file)}"> ${file}</td>
 						<td>${kind}</td>
-					</tr>`;
+					`;
+					el.setAttribute("data-i", index);
+					el.setAttribute("onclick", `parent.launchApp('${file.split(".")[0]}');`)
+					document.getElementById("files").appendChild(el);
 					if (kind == "Folder") {
 						document.querySelector("tr[data-i='" + index + "']").addEventListener("click", () => {
+							console.log("hi");
 							document.querySelector("input").value += file += "/";
 							getFiles();
 						});
@@ -177,9 +199,9 @@
 
 			getFiles();
 
-			document.querySelectorAll("ul > li:not(li:has(input))").forEach((el) => {
+			document.querySelectorAll("ul > li:not(li:has(input), #contextmenu li)").forEach((el) => {
 				el.addEventListener("click", () => {
-					document.querySelectorAll("ul > li:not(li:has(input))").forEach((el) => {
+					document.querySelectorAll("ul > li:not(li:has(input), #contextmenu li)").forEach((el) => {
 						el.classList.remove("active");
 					});
 					el.classList.add("active");
@@ -198,6 +220,7 @@
 				getFiles();
 			}
 		</script>
+		<script src="/scripts/ui_helper.js"></script>
 		<script src="/apps/files/cmenu.js"></script>
 	</body>
 </html>

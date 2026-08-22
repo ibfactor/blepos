@@ -65,10 +65,9 @@ function dragIcon(win, x = false) {
       }
     });
     win.style.opacity = 1;
-
+    console.log(winOriginalLeft, win.offsetLeft);
     if ((Math.abs(winOriginalLeft - win.offsetLeft) < 10) && (Math.abs(winOriginalTop - win.offsetTop) < 10)) {
       if (x) {
-
         if (win.getAttribute("data-type") == "folder") {
           const path = win.getAttribute("data-path");
           launchApp("files", true, path);
@@ -84,21 +83,56 @@ function getIcon(file) {
   if (file == "Trash") {
     item = "/icons/trash.png";
   }
+  if (file.endsWith(".app")) {
+    item = "/icons/executable.png";
+  }
+  if (file.endsWith(".mp4")) {
+    item = "/icons/video.png";
+  }
+  if (file.endsWith(".txt")) {
+    item = "/icons/txt.png";
+  }
+  if (file.endsWith(".png")) {
+    item = "/icons/png.png";
+  }
   return item;
 }
 
 preloadedFiles["desktop"].forEach((file, index) => {
-  var item = "/icons/folder.png";
-  if (file == "Trash") {
-    item = "/icons/trash.png";
-  }
-  document.querySelectorAll("#desktop_files td")[index].innerHTML = `<div class="d-icon" data-type="folder" data-path="/desktop/${file}">
+  const item = getIcon(file);
+
+  const rect = document.querySelectorAll("#desktop_files td")[index].getBoundingClientRect();
+
+  document.querySelectorAll("#desktop_files td")[index].innerHTML = `<div style="top: ${(rect.top - 26)}px; left: ${(rect.left + 1.5)}px;" class="d-icon" data-type="folder" data-path="/desktop/${file}">
     <img src="${item}">
     <span>${file}</span>
   </div>`;
+});
+document.querySelectorAll(".d-icon").forEach((item) => {
+  dragIcon(item, true);
+});
 
+function reRenderDesktop() {
+  document.querySelectorAll("#desktop_files table td").forEach((item) => {
+    item.innerHTML = "";
+  });
+
+  preloadedFiles["desktop"].forEach((file, index) => {
+    var item = "/icons/folder.png";
+    if (file == "Trash") {
+      item = "/icons/trash.png";
+    }
+
+    const rect = document.querySelectorAll("#desktop_files td")[index].getBoundingClientRect();
+
+    document.querySelectorAll("#desktop_files td")[index].innerHTML = `<div style="top: ${(rect.top - 26)}px; left: ${(rect.left + 1.5)}px;" class="d-icon" data-type="folder" data-path="/desktop/${file}">
+      <img src="${item}">
+      <span>${file}</span>
+    </div>`;
+  });
   document.querySelectorAll(".d-icon").forEach((item) => {
     dragIcon(item, true);
   });
-});
+
+}
 

@@ -1,64 +1,111 @@
-function newFolder() {
-	const item = window.activeEvent;
-
-	const folderID = Math.ceil(Math.random() * 1000);
-
-    const win = document.createElement("div");
-    win.classList.add("d-icon");
-    win.setAttribute("data-type", "folder");
-    win.setAttribute("data-path", "/desktop/folder");
-  	win.innerHTML = `<img src="${getIcon("folder")}">
-	   				 <input value="folder ${folderID}" id="folder${folderID}">`;
-    item.appendChild(win);
-
-    const rect = item.getBoundingClientRect();
-    win.style.top = (rect.top - 26) + "px";
-    win.style.left = (rect.left + 1.5) + "px";
-
-    forceQuitAllCMenus();
-
-    document.getElementById("folder" + folderID).focus();
-    document.getElementById("folder" + folderID).addEventListener("keyup", (event) => {
-    	if (event.key.toLowerCase() == "enter") {
-    		document.activeElement.blur();
-    	}
-    });
-    const aint = setInterval(() => {
-    	const val = document.getElementById("folder" + folderID).value;
-    	if (document.activeElement != document.getElementById("folder" + folderID)) {
-    		document.getElementById("folder" + folderID).outerHTML =
-    			`<span>${val}</span>`
-    		;
-		    win.setAttribute("data-path", "/desktop/" + val)
-    		preloadedFiles["desktop"].push(val);
-
-    		dragIcon(win, true);
-
-    		clearInterval(aint);
-    	}
-    }, 300);
+function quitAllCMenus() {
+	window.activeCMenuEl = null;
+	document.querySelectorAll(".contextmenu").forEach((el) => {
+		fadeOut(el);
+	});
+}
+function forceQuitAllCMenus(except_el = null) {
+	document.querySelectorAll(".contextmenu").forEach((el) => {
+		if (el == except_el) {
+			return;
+		}
+		el.style.transition = "0s opacity";
+		el.style.display = "none";
+		el.style.opacity = "0";
+		el.style.transition = "0.2s opacity";
+	});
 }
 
-window.activeCMenuEl = null;
-window.activeEvent = null;
+function cmOpenFile() {
+	window.activeEvent.click();
+}
+function cmRenameFile() {
+	var loc = document.querySelector("#main input").value;
+	if (loc.endsWith("/")) {
+		loc = loc.slice(0, -1);
+	}
+	if (loc.startsWith("/")) {
+		loc = loc.substring(1);
+	}
+
+	const currentActiveEvent = window.activeEvent;
+	currentActiveEvent.children[0].innerHTML = currentActiveEvent.children[0].innerHTML.split(">")[0] + `><input type="text" value="${currentActiveEvent.children[0].innerHTML.split(">")[1].trim()}">`;
+	currentActiveEvent.children[0].children[1].focus();
+	var chosenNewValue = "";
+	const previousValue = currentActiveEvent.children[0].children[1].value;
+	currentActiveEvent.children[0].children[1].addEventListener("keyup", (event) => {
+		if (event.key == "Enter") {
+			document.activeElement.blur();
+		}
+	});
+	const renameInt = setInterval(() => {
+		if (currentActiveEvent.children[0].children[1] != document.activeElement) {
+			chosenNewValue = currentActiveEvent.children[0].children[1].value.trim();
+			parent.moveFile(`${loc}/${previousValue}`, `${loc}/${chosenNewValue}`);
+			console.log(`${loc}/${previousValue}`, `${loc}/${chosenNewValue}`);
+			parent.reRenderDesktop();
+			currentActiveEvent.children[0].innerHTML = currentActiveEvent.children[0].innerHTML.split(">")[0] + `> ${currentActiveEvent.children[0].children[1].value.trim()}`;
+			clearInterval(renameInt);
+		}
+	}, 100);
+}
+function cmTrashFile() {
+
+	var loc = document.querySelector("#main input").value + window.activeEvent.children[0].innerText.trim();
+	if (loc.endsWith("/")) {
+		loc = loc.slice(0, -1);
+	}
+	if (loc.startsWith("/")) {
+		loc = loc.substring(1);
+	}
+	var locNew = loc.split("/").pop();
+	/*if (locNew.startsWith("desktop/")) {
+		locNew = locNew.replace("desktop/", "");
+	}
+	if (locNew.startsWith("documents/")) {
+		locNew = locNew.replace("documents/", "");
+	}
+	if (locNew.startsWith("downloads/")) {
+		locNew = locNew.replace("downloads/", "");
+	}
+	if (locNew.startsWith("apps/")) {
+		locNew = locNew.replace("apps/", "");
+	}*/
+
+	// const bfr = item.children[0].children[1].innerText;
+
+	// const afr = win.children[1].innerText;
+	/*const afr = "desktop/Trash";
+	const bfr = window.activeEvent.children[0].innerText;
+
+	parent.preloadedFiles[loc] = parent.preloadedFiles[loc].filter((item) => { return (item !== bfr) });
+	  if (!parent.preloadedFiles[afr] || !parent.preloadedFiles[afr][0]) {
+	    parent.preloadedFiles[afr] = [];
+	  }
+	  parent.preloadedFiles[afr].push(bfr);
+	  Object.keys(parent.preloadedFiles).forEach((key) => {
+	    if (key.startsWith(loc + "/")) {
+	      const relative = key.split(loc + "/")[1];
+	      if (relative == bfr || relative.startsWith(`${bfr}/`)) {
+
+	        parent.preloadedFiles[key.replace(loc + "/" + bfr, afr + "/" + bfr)] = parent.preloadedFiles[key];
+	        delete parent.preloadedFiles[key];
+
+	      }
+	    }
+	  });*/
+	  parent.moveFile(loc, "desktop/Trash/" + locNew);
+	  console.log(loc, "desktop/Trash/" + locNew);
+
+	  getFiles();
+	  parent.reRenderDesktop();
+
+}
+
 function cmenu(event) {
 	event.preventDefault();
 	var celem = document.getElementById("contextmenu");
-	if (event.target.closest("#dock") && event.target.closest(".app")) {
-		celem = document.getElementById("contextmenu_dock");
-		window.activeCMenuEl = event.target.closest(".app");
-		if (event.target.closest(".app").classList.contains("active")) {
-			document.querySelectorAll("#contextmenu_dock li")[0].classList.remove("disabled");
-			document.querySelectorAll("#contextmenu_dock li")[1].innerHTML = `-<i class="fas fa-window-maximize"></i> Quit App`;
-		}
-		else {
-			document.querySelectorAll("#contextmenu_dock li")[0].classList.add("disabled");
-			document.querySelectorAll("#contextmenu_dock li")[1].innerHTML = `+<i class="fas fa-window-maximize"></i> Open App`;
-		}
-	}
-	else if (event.target.closest("#dock")) {
-		return;
-	}
+
 	forceQuitAllCMenus(celem);
 	fadeIn(celem);
 	celem.style.right = "auto";
@@ -69,25 +116,38 @@ function cmenu(event) {
 		celem.style.left = "auto";
 		celem.style.right = (document.body.offsetWidth - event.clientX) + "px";
 	}
-	if ((event.clientY + celem.offsetHeight) > document.getElementById("desktop").offsetHeight) {
+	if ((event.clientY + celem.offsetHeight) > document.getElementById("main").offsetHeight) {
 		celem.style.top = "auto";
-		celem.style.bottom = (document.getElementById("desktop").offsetHeight - event.clientY) + "px";
+		celem.style.bottom = (document.getElementById("main").offsetHeight - event.clientY) + "px";
 	}
 
-    const elems = document.elementsFromPoint(event.clientX, event.clientY);
-    elems.forEach((item) => {
-      if (item.tagName.toLowerCase() == "td") {
-      	document.querySelectorAll("#contextmenu li")[0].classList.add("disabled");
-      	window.activeEvent = item;
-      }
-      else {
-      	document.querySelectorAll("#contextmenu li")[0].classList.remove("disabled");
-      }
-    });
+
+	const elem = document.elementFromPoint(event.clientX, event.clientY);
+
+	document.querySelectorAll("#contextmenu li")[0].classList.remove("disabled");
+
+  if (elem.tagName.toLowerCase() == "td") {
+  	document.querySelectorAll("#contextmenu li")[0].classList.remove("disabled");
+  	if (!elem.innerText.endsWith(".app") && elem.innerText.trim() != "Trash") {
+  		document.querySelectorAll("#contextmenu li")[4].classList.remove("disabled");
+  		document.querySelectorAll("#contextmenu li")[1].classList.remove("disabled");
+  	}
+  	else {
+  		document.querySelectorAll("#contextmenu li")[4].classList.add("disabled");
+  		document.querySelectorAll("#contextmenu li")[1].classList.add("disabled");
+  	}
+  	window.activeEvent = elem.parentElement;
+  }
+  else {
+  	document.querySelectorAll("#contextmenu li")[0].classList.add("disabled");
+  	document.querySelectorAll("#contextmenu li")[4].classList.add("disabled");
+  	document.querySelectorAll("#contextmenu li")[1].classList.add("disabled");
+  }
 
 }
-document.getElementById("desktop").addEventListener("contextmenu", cmenu);
-document.getElementById("desktop").addEventListener("click", () => {
+
+document.getElementById("main").addEventListener("contextmenu", cmenu);
+document.body.addEventListener("click", () => {
 	quitAllCMenus();
 });
 document.querySelectorAll(".contextmenu").forEach((el) => {
@@ -95,4 +155,7 @@ document.querySelectorAll(".contextmenu").forEach((el) => {
 		event.preventDefault();
 	});
 });
+document.querySelectorAll("#contextmenu li")[0].addEventListener("click", cmOpenFile);
+document.querySelectorAll("#contextmenu li")[1].addEventListener("click", cmRenameFile);
+document.querySelectorAll("#contextmenu li")[4].addEventListener("click", cmTrashFile);
 
