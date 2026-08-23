@@ -16,6 +16,7 @@ function forceQuitAllCMenus(except_el = null) {
 	});
 }
 function toggleApp(event) {
+	if (document.querySelectorAll("#contextmenu_dock li")[1].classList.includes("disabled")) return; 
 	if (window.activeCMenuEl.classList.contains("active")) {
 		window.activeCMenuEl.classList.remove("active");
 		quitAllWindows(window.activeCMenuEl.getAttribute("data-id"));
@@ -26,11 +27,13 @@ function toggleApp(event) {
 	forceQuitAllCMenus();
 }
 function newWinApp(event) {
+	if (document.querySelectorAll("#contextmenu_dock li")[0].classList.includes("disabled")) return; 
 	const appId = window.activeCMenuEl.getAttribute("data-id");
 	newWin(appId);
 	forceQuitAllCMenus();
 }
 function newFolder() {
+	if (document.querySelectorAll("#contextmenu li")[0].classList.includes("disabled")) return; 
 	const item = window.activeEvent;
 
 	const folderID = Math.ceil(Math.random() * 1000);

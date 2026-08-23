@@ -17,9 +17,11 @@ function forceQuitAllCMenus(except_el = null) {
 }
 
 function cmOpenFile() {
+	if (document.querySelectorAll("#contextmenu li")[0].classList.includes("disabled")) return; 
 	window.activeEvent.click();
 }
 function cmRenameFile() {
+	if (document.querySelectorAll("#contextmenu li")[1].classList.includes("disabled")) return; 
 	var loc = document.querySelector("#main input").value;
 	if (loc.endsWith("/")) {
 		loc = loc.slice(0, -1);
@@ -50,6 +52,7 @@ function cmRenameFile() {
 	}, 100);
 }
 function cmTrashFile() {
+	if (document.querySelectorAll("#contextmenu li")[4].classList.includes("disabled")) return; 
 
 	var loc = document.querySelector("#main input").value + window.activeEvent.children[0].innerText.trim();
 	if (loc.endsWith("/")) {
