@@ -15,13 +15,90 @@ function forceQuitAllCMenus(except_el = null) {
 		el.style.transition = "0.2s opacity";
 	});
 }
+function newFolder() {
+	if (document.querySelectorAll("#contextmenu li")[2].classList.contains("disabled")) return; 
+
+	const folderID = Math.ceil(Math.random() * 1000);
+
+	const el = document.createElement("tr");
+	el.innerHTML = `
+		<td><img src="/icons/folder.png"><input value="folder ${folderID}"></td>
+		<td>Folder</td>
+	`;
+	el.setAttribute("data-i", "100000000");
+	document.getElementById("files").appendChild(el);
+
+
+    forceQuitAllCMenus();
+    document.querySelector("tr[data-i='100000000'] input").focus();
+    document.querySelector("tr[data-i='100000000']").scrollTo();
+    document.querySelector("tr[data-i='100000000'] input").addEventListener("keyup", (event) => {
+    	if (event.key.toLowerCase() == "enter") {
+    		document.activeElement.blur();
+    	}
+    });
+    const aint = setInterval(() => {
+    	const val = document.querySelector("tr[data-i='100000000'] input").value;
+    	if (document.activeElement != document.querySelector("tr[data-i='100000000'] input")) {
+    		document.querySelector("tr[data-i='100000000'] input").outerHTML =
+    			`${val}`
+    		;
+
+    		if (!parent.preloadedFiles[document.querySelector("input").value.slice(0,-1).slice(1)]) {
+    			parent.preloadedFiles[document.querySelector("input").value.slice(0,-1).slice(1)] = [];
+    		}
+    		parent.preloadedFiles[document.querySelector("input").value.slice(0,-1).slice(1)].push(val);
+
+    		clearInterval(aint);
+    	}
+    }, 300);
+}
+
+function newFile() {
+	if (document.querySelectorAll("#contextmenu li")[3].classList.contains("disabled")) return; 
+
+	const fileID = Math.ceil(Math.random() * 1000);
+
+	const el = document.createElement("tr");
+	el.innerHTML = `
+		<td><img src="/icons/file.png"><input value="file ${fileID}.txt"></td>
+		<td>File</td>
+	`;
+	el.setAttribute("data-i", "100000000");
+	document.getElementById("files").appendChild(el);
+
+
+    forceQuitAllCMenus();
+    document.querySelector("tr[data-i='100000000'] input").focus();
+    document.querySelector("tr[data-i='100000000']").scrollTo();
+    document.querySelector("tr[data-i='100000000'] input").addEventListener("keyup", (event) => {
+    	if (event.key.toLowerCase() == "enter") {
+    		document.activeElement.blur();
+    	}
+    });
+    const aint = setInterval(() => {
+    	const val = document.querySelector("tr[data-i='100000000'] input").value;
+    	if (document.activeElement != document.querySelector("tr[data-i='100000000'] input")) {
+    		document.querySelector("tr[data-i='100000000'] input").outerHTML =
+    			`${val}`
+    		;
+
+    		if (!parent.preloadedFiles[document.querySelector("input").value.slice(0,-1).slice(1)]) {
+    			parent.preloadedFiles[document.querySelector("input").value.slice(0,-1).slice(1)] = [];
+    		}
+    		parent.preloadedFiles[document.querySelector("input").value.slice(0,-1).slice(1)].push(val);
+
+    		clearInterval(aint);
+    	}
+    }, 300);
+}
 
 function cmOpenFile() {
-	if (document.querySelectorAll("#contextmenu li")[0].classList.includes("disabled")) return; 
+	if (document.querySelectorAll("#contextmenu li")[0].classList.contains("disabled")) return; 
 	window.activeEvent.click();
 }
 function cmRenameFile() {
-	if (document.querySelectorAll("#contextmenu li")[1].classList.includes("disabled")) return; 
+	if (document.querySelectorAll("#contextmenu li")[1].classList.contains("disabled")) return; 
 	var loc = document.querySelector("#main input").value;
 	if (loc.endsWith("/")) {
 		loc = loc.slice(0, -1);
@@ -52,7 +129,7 @@ function cmRenameFile() {
 	}, 100);
 }
 function cmTrashFile() {
-	if (document.querySelectorAll("#contextmenu li")[4].classList.includes("disabled")) return; 
+	if (document.querySelectorAll("#contextmenu li")[4].classList.contains("disabled")) return; 
 
 	var loc = document.querySelector("#main input").value + window.activeEvent.children[0].innerText.trim();
 	if (loc.endsWith("/")) {
@@ -161,4 +238,7 @@ document.querySelectorAll(".contextmenu").forEach((el) => {
 document.querySelectorAll("#contextmenu li")[0].addEventListener("click", cmOpenFile);
 document.querySelectorAll("#contextmenu li")[1].addEventListener("click", cmRenameFile);
 document.querySelectorAll("#contextmenu li")[4].addEventListener("click", cmTrashFile);
+document.querySelectorAll("#contextmenu li")[2].addEventListener("click", newFolder);
+document.querySelectorAll("#contextmenu li")[3].addEventListener("click", newFile);
+
 
