@@ -7,6 +7,17 @@ body {
 	background-color: black;
 	font-family: Montserrat, sans-serif;
 	user-select: none;
+	transition: all 0.2s;
+}
+
+.destroy1 {
+	transform: rotate(90deg) translate(50%, 50%);
+}
+.destroy2 {
+	transform: rotate(180deg) translate(50%, 50%);
+}
+.destroy3 {
+	transform: rotate(360deg) skew(50deg) translate(50%, 50%);
 }
 
 h1, h2, h3, h4, h5, h6 {

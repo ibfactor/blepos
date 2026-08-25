@@ -70,9 +70,19 @@ function dragIcon(win, x = false) {
       if (x) {
         if (win.getAttribute("data-type") == "folder") {
           const path = win.getAttribute("data-path");
-          launchApp("files", true, path);
-        }
 
+          var kind = path.split("/").pop().split(".").pop();
+          if (!path.split("/").pop().includes(".")) {
+            kind = "Folder";
+          }
+          console.log(kind);
+          if (kind != "app" && kind != "Folder") {
+            launchApp(path.split("/").pop());
+          }
+          else {
+            launchApp("files", true, path);
+          }
+        }
       }
     }
   }
@@ -118,10 +128,11 @@ function reRenderDesktop() {
   });
 
   preloadedFiles["desktop"].forEach((file, index) => {
-    var item = "/icons/folder.png";
+    /*var item = "/icons/folder.png";
     if (file == "Trash") {
       item = "/icons/trash.png";
-    }
+    }*/
+    var item = getIcon(file);
 
     const rect = document.querySelectorAll("#desktop_files td")[index].getBoundingClientRect();
 

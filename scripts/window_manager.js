@@ -142,4 +142,6 @@ function launchWindow(title, id, url = "about:blank", width, height, extra) {
 	allowDragAndResize(win);
 	titleBarButtons(win);
 	allowFront(win);
+
+	return win.querySelector("iframe");
 }

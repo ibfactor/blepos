@@ -136,8 +136,12 @@
 			    context.drawImage(video, 0, 0, width, height);
 
 			    const data = canvas.toDataURL("image/png");
-			    photo.setAttribute("href", data);
-			    photo.click();
+			    /*photo.setAttribute("href", data);
+			    photo.click();*/
+			    const file = "image" + Math.floor(Math.random() * 10000).toString() + ".png";
+			    parent.fsAddFile(file, data);
+			    parent.preloadedFiles["desktop"].push(file);
+			    parent.reRenderDesktop();
 			  } else {
 			    clearPhoto();
 			  }

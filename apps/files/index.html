@@ -184,7 +184,7 @@
 						<td>${kind}</td>
 					`;
 					el.setAttribute("data-i", index);
-					el.setAttribute("onclick", `parent.launchApp('${file.split(".")[0]}');`)
+					el.setAttribute("onclick", `parent.launchApp('${ kind == "blepOS application" ? file.split(".")[0] : file}');`)
 					document.getElementById("files").appendChild(el);
 					if (kind == "Folder") {
 						document.querySelector("tr[data-i='" + index + "']").addEventListener("click", () => {

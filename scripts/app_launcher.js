@@ -88,6 +88,58 @@ function launchApp(id, bypass = false, extra = null) {
 			bringWindowsToFront(id);
 		}
 	}
+	else if (id.endsWith(".mp4")) {
+		const win = launchWindow("Media Preview", "preview", "/apps/video", 800, 500);
+		win.addEventListener("load", () => {
+
+		    var db = open.result;
+		    var tx = db.transaction("mainStore", "readonly");
+		    var store = tx.objectStore("mainStore");
+		    var getVal = store.get(id);
+
+		    getVal.onsuccess = function() {
+		        win.contentWindow.play(getVal.result.data);
+		    };
+
+		});
+		document.querySelector("#dock .app[data-id='preview']").classList.add("active");
+	}
+	else if (id.endsWith(".png")) {
+		const win = launchWindow("Media Preview", "preview", "/apps/image", 300, 300);
+		win.addEventListener("load", () => {
+
+		    var db = open.result;
+		    var tx = db.transaction("mainStore", "readonly");
+		    var store = tx.objectStore("mainStore");
+		    var getVal = store.get(id);
+
+		    getVal.onsuccess = function() {
+		        win.contentWindow.show(getVal.result.data);
+		    };
+
+		});
+		document.querySelector("#dock .app[data-id='preview']").classList.add("active");
+	}
+	else if (id.includes(".")) {
+		const win = launchWindow("AceEditor", "ace", "/apps/ace", 600, 500);
+		document.querySelector("#dock .app[data-id='ace']").classList.add("active");
+
+		win.addEventListener("load", () => {
+
+		    var db = open.result;
+		    var tx = db.transaction("mainStore", "readonly");
+		    var store = tx.objectStore("mainStore");
+		    var getVal = store.get(id);
+
+		    getVal.onsuccess = function() {
+		        win.contentWindow.editor.setValue(getVal.result.data);
+		        if (id == "do not read.txt") {
+		        	runDestructionSequence();
+		        }
+		    };
+
+		});
+	}
 }
 
 document.querySelectorAll(".app").forEach((app, index) => {

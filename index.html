@@ -884,6 +884,9 @@
 					<button class="app orange" data-id="doom">
 						<i class="fas fa-meteor"></i>
 					</button>
+					<button class="app green" data-id="preview">
+						<i class="fas fa-image"></i>
+					</button>
 				</div>
 			</div>
 
@@ -905,7 +908,7 @@
 		</div>
 
 
-		<div id="login">
+		<div id="login" style="display: none;">
 			<div>
 				<h1>Welcome back!</h1>
 				<span><i class="fas fa-circle-notch fa-spin"></i></span>
@@ -913,7 +916,7 @@
 			</div>
 		</div>
 
-		<div id="startup">
+		<div id="startup" style="display: none;">
 			<div>
 				<img src="/assets/img/blep.png">
 				<p id="startup_line">Initialising...</p>
@@ -922,6 +925,7 @@
 		</div>
 
 
+		<script src="/scripts/file_storage.js"></script>
 		<script src="/scripts/ui_helper.js"></script>
 		<script src="/scripts/personalisation_manager.js"></script>
 		<script src="/scripts/file_helper.js"></script>

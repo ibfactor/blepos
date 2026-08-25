@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Calculator</title>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+			* {
+				font-family: Montserrat;
+			}
+			html, body {
+				width: 100%;
+			    height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			body {
+				user-select: none;
+			}
+
+			#vid {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: calc(100% - 20px);
+			}
+		</style>
+	</head>
+	<body>
+
+		<video id="vid" controls></video>
+
+		<script>
+			function play(url) {
+				const vid = document.getElementById("vid");
+				vid.src = url;
+				vid.play();
+			}
+		</script>
+	</body>
+</html>
