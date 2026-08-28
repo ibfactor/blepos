@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Settings</title>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="/assets/styles/main.css">
+		<style>
+
+			#sidebar {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 20%;
+				max-width: 200px;
+				border-right: 0.5px solid #4a4a4a;
+				height: 100%;
+				padding-top: 0;
+			}
+			ul {
+				padding: 0px;
+				margin: 0;
+			}
+			ul, li {
+				list-style: none;
+				padding: 5px;
+			}
+			li {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				font-size: 13px;
+				cursor: pointer;
+				transition: all 0.2s;
+			}
+			li:hover, li.active {
+				background-color: rgba(255, 255, 255, 0.2);
+			}
+			input {
+				background-color: rgba(0, 0, 0, 0);
+				color: white;
+				width: calc(100% - 8px);
+				border: 0;
+			}
+			input:focus {
+				outline: 0;
+			}
+			#main {
+				position: fixed;
+				width: max(80%, 100% - 200px);
+				left: min(20%, 200px);
+				right: 0;
+				top: 0;
+				height: 100%;
+			}
+			#main * {
+				margin-left: 10px;
+			}
+			#main h5 {
+				margin-top: -5px;
+			}
+			#main img {
+				width: calc(50% - 20px);
+				aspect-ratio: 677 / 379;
+				border-radius: 5px;
+				margin-bottom: 10px;
+				cursor: pointer;
+			}
+			#main, #main > div {
+				overflow-y: scroll;
+			}
+
+			img.selected {
+				outline: 2px solid lightgreen;
+			}
+			#main > div {
+				padding-bottom: 20px;
+			}
+
+			input {
+				font-family: "Jetbrains Mono";
+				background-color: rgba(255, 255, 255, 0.1);
+				position: absolute;
+				left: -9px;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 5px;
+				padding-right: 5px;
+				width: calc(100% - 10px);
+			}
+
+			#main > div {
+				padding-top: 30px;
+			}
+
+			th {
+				text-align: left;
+			}
+
+			table {
+				width: 100%;
+			}
+
+			td {
+				padding: 5px;
+				transition: all 0.1s;
+			}
+			tr:hover td {
+				background-color: rgba(255, 255, 255, 0.2);
+				cursor: pointer;
+			}
+
+			#main td img {
+				width: 20px;
+				aspect-ratio: auto;
+				display: inline-block;
+				vertical-align: top;
+				margin-right: 5px;
+			}
+
+			#main td input {
+				margin-left: 80px;
+				background-color: rgba(255, 255, 255, 0.5);
+				width: 100px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="sidebar">
+			<ul>
+				<li data-path="/apps/" class="active"><i class="fas fa-folder"></i>&nbsp;&nbsp;Apps</li>
+				<li data-path="/desktop/"><i class="fas fa-folder"></i>&nbsp;&nbsp;Desktop</li>
+				<li data-path="/downloads/"><i class="fas fa-folder"></i>&nbsp;&nbsp;Downloads</li>
+				<li data-path="/documents/"><i class="fas fa-folder"></i>&nbsp;&nbsp;Documents</li>
+			</ul>
+		</div>
+		<div id="main">
+			<input type="text" value="/apps/">
+			<div data-path="/apps/">
+				<table id="files">
+					<tr>
+						<th>Name</th>
+						<th>Kind</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div id="contextmenu" class="contextmenu">
+			<ul>
+				<li class="disabled">+<i class="fas fa-window-maximize"></i> Open</li>
+				<li class="disabled">±<i class="fas fa-text-width"></i> Rename</li>
+				<li>+<i class="fas fa-folder"></i> New Folder</li>
+				<li>+<i class="fas fa-file"></i> New File</li>
+				<li class="disabled">-<i class="fas fa-trash"></i> Trash</li>
+			</ul>
+		</div>
+
+
+		<script src="/scripts/file_storage.js"></script>
+		<script>
+			var accepted = [];
+			if (location.href.includes("?accepted=")) {
+				accepted = location.href.split("?accepted=")[1].split(",");
+			}
+
+			const kinds = {
+				"app": "blepOS application",
+				"txt": "text file",
+				"mp4": "MPEG-4 video",
+				"png": "PNG image"
+			};
+
+
+			function getFiles() {
+
+				const current_path = document.querySelector("input").value;
+
+				const files = top.preloadedFiles[current_path.replace(/^\/+|\/+$/g, '')];
+				document.getElementById("files").innerHTML = `<tr>
+					<th>Name</th>
+					<th>Kind</th>
+				</tr>`;
+				files.forEach((file, index) => {
+					const kind = kinds[file.split(".").pop()] || "Folder";
+					const ext = file.split(".").pop();
+					const el = document.createElement("tr");
+					el.innerHTML = `
+						<td><img src="${top.getIcon(file)}"> ${file}</td>
+						<td>${kind}</td>
+					`;
+					el.setAttribute("data-i", index);
+					el.setAttribute("onclick", `top.launchApp('${ kind == "blepOS application" ? file.split(".")[0] : file}');`)
+					document.getElementById("files").appendChild(el);
+					if (kind == "Folder") {
+						document.querySelector("tr[data-i='" + index + "']").addEventListener("click", () => {
+							console.log("hi");
+							document.querySelector("input").value += file += "/";
+							getFiles();
+						});
+					}
+					if (kind != "Folder" && !accepted.includes(ext)) {
+						el.style.opacity = "0.5";
+						el.removeAttribute("onclick");
+					}
+					else if (kind != "Folder") {
+						el.removeAttribute("onclick");
+						el.addEventListener("click", () => {
+
+							var db = open.result;
+						    var tx = db.transaction("mainStore", "readonly");
+						    var store = tx.objectStore("mainStore");
+						    var getVal = store.get(file);
+
+						    getVal.onsuccess = function() {
+						        parent.editor.setValue(getVal.result.data);
+						        parent.toggleFade(parent.document.getElementById("open"));
+						    };
+
+						});
+					}
+				});
+
+			}
+
+			getFiles();
+
+			document.querySelectorAll("ul > li:not(li:has(input), #contextmenu li)").forEach((el) => {
+				el.addEventListener("click", () => {
+					document.querySelectorAll("ul > li:not(li:has(input), #contextmenu li)").forEach((el) => {
+						el.classList.remove("active");
+					});
+					el.classList.add("active");
+					document.querySelector("input").value = el.getAttribute("data-path");
+					getFiles();
+				});
+			});
+
+			if (location.href.includes("?p=")) {
+				const val = decodeURIComponent(location.href.split("?p=")[1]);
+				document.querySelector(`[data-path="/${val.split("/")[1]}/"]`).click();
+				document.querySelector("input").value = val;
+				if (!document.querySelector("input").value.endsWith("/")) {
+					document.querySelector("input").value += "/";
+				}
+				getFiles();
+			}
+		</script>
+		<script src="/scripts/ui_helper.js"></script>
+	</body>
+</html>
