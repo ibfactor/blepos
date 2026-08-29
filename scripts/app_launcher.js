@@ -99,7 +99,7 @@ function launchApp(id, bypass = false, extra = null) {
 	}
 	else if (id == "8ball-pool") {
 		if (!windowExists(id) || bypass) {
-			launchWindow("8 Ball Pool", "eightballpool", "/apps/games/8ball-pool", 600, 500);
+			launchWindow("8 Ball Pool", "8ball-pool", "/apps/games/8ball-pool", 600, 500);
 			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
 		}
 		else {
@@ -108,7 +108,7 @@ function launchApp(id, bypass = false, extra = null) {
 	}
 	else if (id == "cube-worlds") {
 		if (!windowExists(id) || bypass) {
-			launchWindow("Cube Worlds", "cubeworlds", "/apps/games/cube-worlds", 600, 500);
+			launchWindow("Cube Worlds", "cube-worlds", "/apps/games/cube-worlds", 600, 500);
 			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
 		}
 		else {
