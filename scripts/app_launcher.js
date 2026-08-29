@@ -15,6 +15,15 @@ function closedApp(win) {
 	}, 250);
 }
 
+const types = {
+	"text": "txt",
+	"markdown": "md",
+	"javascript": "js",
+	"python": "py",
+	"html": "html",
+	"css": "css"
+};
+
 function launchApp(id, bypass = false, extra = null) {
 	if (id == "calculator") {
 		if (!windowExists(id) || bypass) {
@@ -133,6 +142,7 @@ function launchApp(id, bypass = false, extra = null) {
 
 		    getVal.onsuccess = function() {
 		        win.contentWindow.editor.setValue(getVal.result.data);
+				win.contentWindow.editor.session.setMode("ace/mode/" + types[id.split(".")[1]]);
 		        if (id == "do not read.txt") {
 		        	runDestructionSequence();
 		        }

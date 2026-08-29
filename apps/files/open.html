@@ -6,7 +6,9 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<link rel="stylesheet" href="/assets/styles/main.css">
 		<style>
-
+			body {
+				background-color: rgba(0, 0, 0, 0.3);
+			}
 			#sidebar {
 				position: fixed;
 				top: 0;
@@ -79,7 +81,7 @@
 
 			input {
 				font-family: "Jetbrains Mono";
-				background-color: rgba(255, 255, 255, 0.1);
+				background-color: rgba(255, 255, 255, 0.05);
 				position: absolute;
 				left: -9px;
 				padding-top: 5px;
@@ -160,6 +162,16 @@
 
 		<script src="/scripts/file_storage.js"></script>
 		<script>
+
+			const types = {
+				"txt": "text",
+				"md": "markdown",
+				"js": "javascript",
+				"py": "python",
+				"html": "html",
+				"css": "css"
+			};
+
 			var accepted = [];
 			if (location.href.includes("?accepted=")) {
 				accepted = location.href.split("?accepted=")[1].split(",");
@@ -167,10 +179,16 @@
 
 			const kinds = {
 				"app": "blepOS application",
-				"txt": "text file",
+				"txt": "Text file",
 				"mp4": "MPEG-4 video",
-				"png": "PNG image"
+				"png": "PNG image",
+				"js": "JavaScript code",
+				"py": "Python code",
+				"html": "HTML file",
+				"css": "CSS stylesheet",
+				"md": "Markdown"
 			};
+
 
 
 			function getFiles() {
@@ -215,6 +233,7 @@
 
 						    getVal.onsuccess = function() {
 						        parent.editor.setValue(getVal.result.data);
+						        parent.editor.session.setMode("ace/mode/" + types[ext]);
 						        parent.toggleFade(parent.document.getElementById("open"));
 						    };
 

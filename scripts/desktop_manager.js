@@ -90,8 +90,16 @@ function dragIcon(win, x = false) {
 
 function getIcon(file) {
   var item = "/icons/folder.png";
+
+  if (file.includes(".")) {
+    item = "/icons/file.png";
+  }
+
   if (file == "Trash") {
     item = "/icons/trash.png";
+  }
+  if (file == "Games") {
+    item = "/icons/games.png";
   }
   if (file.endsWith(".app")) {
     item = "/icons/executable.png";
@@ -101,6 +109,9 @@ function getIcon(file) {
   }
   if (file.endsWith(".txt")) {
     item = "/icons/txt.png";
+  }
+  if (file.endsWith(".md") || file.endsWith(".js") || file.endsWith(".py") || file.endsWith(".html") || file.endsWith(".css")) {
+    item = "/icons/code.png";
   }
   if (file.endsWith(".png")) {
     item = "/icons/png.png";
