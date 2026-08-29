@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+	<meta charset="utf-8">
+	 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	 <title>Cube Worlds</title>
+	 <style type="text/css">
+		iframe { 
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-family: sans-serif;
+			border: 0;
+			width: 570px;
+			height: 380px;
+		}
+	 </style>
+	</head>
+	<body>
+		 <iframe src="https://cloud.onlinegames.io/games/2025/html/cube-worlds/index-og.html"></iframe>
+
+		 <script type="text/javascript">
+		    function resizeHandler() {
+		        const iframe = document.querySelector("iframe");
+
+		        const scaleX = document.body.offsetWidth / 570;
+		        const scaleY = window.innerHeight / 380;
+
+		        iframe.style.zoom = Math.min(scaleX, scaleY);
+		    }
+
+		 	window.addEventListener("resize", resizeHandler)
+		 	resizeHandler();
+		 </script>
+	</body>
+</html>

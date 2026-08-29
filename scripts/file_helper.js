@@ -13,7 +13,8 @@ else {
 			"camera.app",
 			"settings.app",
 			"terminal.app",
-			"files.app"
+			"files.app",
+			"ace.app"
 		],
 		"desktop": [
 			"Trash",
@@ -30,7 +31,9 @@ else {
 			"cattuh.png"
 		],
 		"desktop/Games": [
-			"doom.app"
+			"doom.app",
+			"8ball-pool.app",
+			"cube-worlds.app"
 		],
 		"desktop/Trash": []
 	};

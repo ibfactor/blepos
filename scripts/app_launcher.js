@@ -97,6 +97,24 @@ function launchApp(id, bypass = false, extra = null) {
 			bringWindowsToFront(id);
 		}
 	}
+	else if (id == "8ball-pool") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("8 Ball Pool", "eightballpool", "/apps/games/8ball-pool", 600, 500);
+			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
+	else if (id == "cube-worlds") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("Cube Worlds", "cubeworlds", "/apps/games/cube-worlds", 600, 500);
+			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
 	else if (id.endsWith(".mp4")) {
 		const win = launchWindow("Media Preview", "preview", "/apps/video", 800, 500);
 		win.addEventListener("load", () => {

@@ -71,12 +71,14 @@ function dragElement(win) {
     win.style.top = (win.offsetTop - pos2) + "px";
     win.style.left = (win.offsetLeft - pos1) + "px";
     win.children[0].style.cursor = "grabbing";
+    win.children[1].style.pointerEvents = "none";
   }
 
   function closeDragElement() {
     document.removeEventListener("mouseup", closeDragElement);
     document.removeEventListener("mousemove", elementDrag);
     win.children[0].style.cursor = "grab";
+    win.children[1].style.pointerEvents = "auto";
   }
 }
 
@@ -129,11 +131,33 @@ function launchWindow(title, id, url = "about:blank", width, height, extra) {
 	win.style.width = width + "px";
 	win.style.height = height + "px";
 
+	var firstTime = true;
+
 	win.querySelector("iframe").addEventListener("load", () => {
 			if (extra && !decodeURIComponent(win.querySelector("iframe").contentWindow.location.href).includes(extra)) {
 				win.querySelector("iframe").contentWindow.location.href += "?p=" + extra;
 			}
+		
+			if (firstTime) {
+				win.querySelector("iframe").focus();
+				try {
+					win.querySelector("iframe").contentDocument.body.focus();
+				}
+				catch (err) {
+					console.log(err);
+				}
+
+				const monitor = setInterval(function() {
+				    var elem = document.activeElement;
+				    if (elem && elem == win.querySelector("iframe")) {
+				        sendAllWindowsToBack();
+								win.classList.add("win-front");
+				    }
+				}, 100);
+				firstTime = false;
+			}
 	});
+	
 
 	document.getElementById("windows").appendChild(win);
 	win.style.opacity = "0";
