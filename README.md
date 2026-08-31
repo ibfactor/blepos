@@ -28,7 +28,6 @@
   - Games! (doom knockoff, minecraft knockoff, 8 ball pool)
   - Video player, image preview app
   - Desktop unpinned apps (shows app state - closed or open)
-  - Task Manager/Activity Monitor
 ### Self-Hosting:
 This is a completely static website.\
 You can clone this repository into your website folder and access the index.html file.\
