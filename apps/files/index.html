@@ -125,21 +125,26 @@
 				background-color: rgba(255, 255, 255, 0.5);
 				width: 100px;
 			}
+
+			th button {
+				width: calc(100% - 50px);
+				background-color: rgba(255, 255, 255, 0.1);
+			}
 		</style>
 	</head>
 	<body>
 
 		<div id="sidebar">
 			<ul>
-				<li data-path="/apps/" class="active"><i class="fas fa-folder"></i>&nbsp;&nbsp;Apps</li>
+				<li data-path="/apps/"><i class="fas fa-folder"></i>&nbsp;&nbsp;Apps</li>
 				<li data-path="/desktop/"><i class="fas fa-folder"></i>&nbsp;&nbsp;Desktop</li>
-				<li data-path="/downloads/"><i class="fas fa-folder"></i>&nbsp;&nbsp;Downloads</li>
+				<li data-path="/downloads/" class="active"><i class="fas fa-folder"></i>&nbsp;&nbsp;Downloads</li>
 				<li data-path="/documents/"><i class="fas fa-folder"></i>&nbsp;&nbsp;Documents</li>
 			</ul>
 		</div>
 		<div id="main">
-			<input type="text" value="/apps/">
-			<div data-path="/apps/">
+			<input type="text" value="/downloads/">
+			<div data-path="/downloads/">
 				<table id="files">
 					<tr>
 						<th>Name</th>
@@ -161,6 +166,11 @@
 
 
 		<script>
+			function clearTrash() {
+				parent.preloadedFiles["desktop/Trash"] = [];
+				getFiles();
+			}
+
 			const kinds = {
 				"app": "blepOS application",
 				"txt": "Text file",
@@ -201,7 +211,11 @@
 						});
 					}
 				});
-
+				if (current_path.replace(/^\/+|\/+$/g, '') == "desktop/Trash") {
+					document.getElementById("files").innerHTML += `<tr>
+						<th colspan="2"><button onclick="clearTrash();">Clear Trash</button></th>
+					</tr>`;
+				}
 			}
 
 			getFiles();

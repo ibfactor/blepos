@@ -41,6 +41,13 @@ else {
 }
 
 
+setInterval(() => {
+	if (localStorage.getItem("files") != JSON.stringify(preloadedFiles)) {
+		localStorage.setItem("files", JSON.stringify(preloadedFiles));
+	}
+}, 50);
+
+
 function moveFile(oldPath, newPath) {
 	Object.keys(parent.preloadedFiles).forEach((item) => {
 		if (item.startsWith(oldPath)) {
