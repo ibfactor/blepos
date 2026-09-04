@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Settings</title>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="/assets/styles/main.css">
+		<style>
+			html, body {
+				width: 100%;
+				height: calc(100% + 10px);
+			}
+			iframe {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: calc(100% - 30px);
+				border: 0;
+			}
+		</style>
+	</head>
+	<body>
+
+		<iframe src="about:blank"></iframe>
+
+		<script>
+
+			const videos = `https://www.youtube.com/shorts/-9_fyBXm8BQ
+			https://www.youtube.com/shorts/SSoFoBdWISs
+			https://www.youtube.com/shorts/JSGlgULqaoE
+			https://www.youtube.com/shorts/83m6jMIqW_c
+			https://www.youtube.com/shorts/ZjZCBsNLS-U
+			https://www.youtube.com/shorts/C7l6EPl-xew
+			https://www.youtube.com/shorts/2BCJckQ6Zds
+			https://www.youtube.com/shorts/6Mieur06m0I
+			https://www.youtube.com/shorts/QzD1Kk7QDGU
+			https://www.youtube.com/shorts/CGEJ8n62RsY
+			https://www.youtube.com/shorts/F16WorvpRyw
+			https://www.youtube.com/shorts/F16WorvpRyw
+			https://www.youtube.com/shorts/RPeslTglWh8
+			https://www.youtube.com/shorts/zoXvIWCqVbw
+			https://www.youtube.com/shorts/9GsnZVByCe0
+			https://www.youtube.com/shorts/I-EFFEYt6cg
+			https://www.youtube.com/shorts/1RTonnYh-bc
+			https://www.youtube.com/shorts/CbS0FFzxjBI
+			https://www.youtube.com/shorts/G4iPtrk5oN4
+			https://www.youtube.com/shorts/d7UnMO8wdQY
+			https://www.youtube.com/shorts/9Y2PN7HKdJs
+			https://www.youtube.com/shorts/_ZkKw5z9L6I
+			https://www.youtube.com/shorts/2k1DCmyHKy4
+			https://www.youtube.com/shorts/Oo6XrdpgjoI
+			https://www.youtube.com/shorts/0P1QCO_FBng
+			https://www.youtube.com/shorts/jDpvijLhz94
+			https://www.youtube.com/shorts/1e5O1BKZv2Q
+			https://www.youtube.com/shorts/IsY_0TZUDQA
+			https://www.youtube.com/shorts/UGOhgc2yy6I
+			https://www.youtube.com/shorts/83m6jMIqW_c
+			https://www.youtube.com/shorts/CRpuTXAjk7c
+			https://www.youtube.com/shorts/sKHK-wE-hAY
+			https://www.youtube.com/shorts/1Rd3_pXs6DU
+			https://www.youtube.com/shorts/M5zad4ZmrbE
+			https://www.youtube.com/shorts/bsq1xvs_LWo
+			https://www.youtube.com/shorts/nlGYV0bmddI
+			https://www.youtube.com/shorts/_EpC1z3WYtc
+			https://www.youtube.com/shorts/3UIFefE823c
+			https://www.youtube.com/shorts/G6zi-6LkvtI
+			https://www.youtube.com/shorts/WJlpNht8Wu0
+			https://www.youtube.com/shorts/JVpco4PhCqQ
+			https://www.youtube.com/shorts/hMtFYZDgQ9o
+			https://www.youtube.com/shorts/3wn39wKmsQs
+			https://www.youtube.com/shorts/St-Vx8HZF-U
+			https://www.youtube.com/shorts/9XIBukvXrLU
+			https://www.youtube.com/shorts/xNR-fTyoTpA
+			https://www.youtube.com/shorts/Uf64ueVNwOk
+			https://www.youtube.com/shorts/enwBwVCCYFA
+			https://www.youtube.com/shorts/oTw6ksMuImk
+			https://www.youtube.com/shorts/soSh0VMOL4c
+			https://www.youtube.com/shorts/ctJbkGEG-FQ`;
+
+			const vidArray = [];
+			videos.split("\n").forEach((vid) => {
+				vidArray.push(vid.split("/").pop());
+			});
+			var currentVidIndex = 0;
+
+			document.querySelector("iframe").src = "https://www.youtube.com/embed/" + vidArray[currentVidIndex] + "?autoplay=1&controls=0&modestbranding=1";
+
+			window.addEventListener("scroll", () => {
+				currentVidIndex += 1;
+				document.documentElement.scrollTop = 0;
+				document.querySelector("iframe").src = "about:blank";
+				document.querySelector("iframe").src = "https://www.youtube.com/embed/" + vidArray[Math.floor(Math.random() * vidArray.length)] + "?autoplay=1&controls=0";
+			});
+
+		</script>
+	</body>
+</html>

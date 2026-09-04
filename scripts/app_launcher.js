@@ -52,6 +52,15 @@ function launchApp(id, bypass = false, extra = null) {
 			bringWindowsToFront(id);
 		}
 	}
+	else if (id == "bleptube") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("BlepTube", "bleptube", "/apps/bleptube", 336, 600);
+			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
 	else if (id == "settings") {
 		if (!windowExists(id) || bypass) {
 			launchWindow("Settings", "settings", "/apps/settings", 600, 500);
