@@ -5,7 +5,7 @@
 <p>Runs on Vanilla JS/HTML/CSS</p>
 <p>A ready to use version can be accessed at https://blepos.ibfactor.com</p>
 
-### Features (WebOS 1)
+### Features
 - App minimising
 - App fullscreen
 - Camera App
@@ -17,18 +17,17 @@
 - Bringing all app windows to front (by clicking the icon in the dock)
 - Custom context menu
 - Draggable and resizable windows (resize from the bottom right corner)
-### Features (WebOS 2)
-  - File manager
-  - Files persist across reloads and new tabs
-  - Files and shortcuts on desktop
-  - Creating and removing files
-  - Code/text editor that can save stuff
-  - Saving camera files onto the files folder itself
-  - Terminal
-  - Games! (doom knockoff, minecraft knockoff, 8 ball pool)
-  - Video player, image preview app
-  - Desktop unpinned apps (shows app state - closed or open), with tooltips
-  - BlepTube (doomscrolling app)
+- File manager
+- Files persist across reloads and new tabs
+- Files and shortcuts on desktop
+- Creating and removing files
+- Code/text editor that can save stuff
+- Saving camera files onto the files folder itself
+- Terminal
+- Games! (doom knockoff, minecraft knockoff, 8 ball pool)
+- Video player, image preview app
+- Desktop unpinned apps (shows app state - closed or open), with tooltips
+- BlepTube (doomscrolling app)
 ### Note Regarding Games
 All games are embedded from third-party services, appropriate credit is present in each game's menu.
 ### Self-Hosting:
