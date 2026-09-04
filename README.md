@@ -27,7 +27,8 @@
   - Terminal
   - Games! (doom knockoff, minecraft knockoff, 8 ball pool)
   - Video player, image preview app
-  - Desktop unpinned apps (shows app state - closed or open)
+  - Desktop unpinned apps (shows app state - closed or open), with tooltips
+  - BlepTube (doomscrolling app)
 ### Note Regarding Games
 All games are embedded from third-party services, appropriate credit is present in each game's menu.
 ### Self-Hosting:
