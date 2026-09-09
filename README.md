@@ -28,6 +28,8 @@
 - Video player, image preview app
 - Desktop unpinned apps (shows app state - closed or open), with tooltips
 - BlepTube (doomscrolling app)
+- Ability to change date/time format (24 hour or 12 hour, DD/MM/YYYY or MM/DD/YYYY)
+- Built-in battery level fetching (via navigator `getBattery()`)
 ### Note Regarding Games
 All games are embedded from third-party services, appropriate credit is present in each game's menu.
 ### Self-Hosting:
