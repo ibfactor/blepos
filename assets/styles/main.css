@@ -127,6 +127,12 @@ button {
 	text-align: right;
 	font-size: 13.5px;
 }
+#toolbar div p {
+	display: inline-block;
+}
+#battery {
+	margin-right: 10px;
+}
 
 .contextmenu {
 	position: fixed;
@@ -175,6 +181,7 @@ button {
 	padding-bottom: 10px;
 	backdrop-filter: blur(3px);
 	text-align: center;
+	white-space: nowrap;
 }
 #non_pinned {
 	display: inline-block;

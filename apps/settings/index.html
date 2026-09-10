@@ -42,6 +42,7 @@
 				color: white;
 				width: calc(100% - 8px);
 				border: 0;
+				font-family: "Montserrat";
 			}
 			input:focus {
 				outline: 0;
@@ -60,8 +61,12 @@
 			#main * {
 				margin-left: 10px;
 			}
-			#main h5 {
+			#main h3 + h5 {
 				margin-top: -5px;
+				margin-bottom: 15px;
+			}
+			#main h5:not(#main h3 + h5) {
+				margin-bottom: 15px;
 			}
 			#main img {
 				width: calc(50% - 20px);
@@ -80,18 +85,58 @@
 			#main > div {
 				padding-bottom: 20px;
 			}
+
+			#main > div {
+				display: none;
+			}
+			#main > div.active-p {
+				display: block;
+			}
+
+			select {
+				display: block;
+				width: calc(100% - 30px);
+				background-color: rgba(255, 255, 255, 0.1);
+				border-radius: 5px;
+				padding: 10px;
+				font-size: 15px;
+				font-family: "Montserrat";
+				transition: all 0.2s;
+				outline: 0px solid rgba(100,100,255,0.5);
+			}
+			select:focus {
+				outline: 2px solid rgba(100,100,255,0.5);
+			}
+			ul li:not(.show, li:has(input)) {
+				display: none;
+			}
+			label:has(h5) {
+				margin: 0 !important;
+				display: inline-block;
+				vertical-align: middle;
+			}
+			label > h5 {
+				margin-top: 12px;
+			}
+			input[type="checkbox"] {
+				display: inline-block;
+				width: auto;
+				vertical-align: middle;
+			}
 		</style>
 	</head>
 	<body>
 
 		<div id="sidebar">
 			<ul>
-				<li><input type="text" placeholder="Search..."></li>
-				<li data-id="personalisation" class="active">Personalisation</li>
+				<li><input type="text" id="srchbar" placeholder="Search..."></li>
+				<li data-id="personalisation" class="active show">Personalisation</li>
+				<li data-id="dateandtime" class="show">Date & Time</li>
+				<li data-id="battery" class="show">Battery</li>
 			</ul>
 		</div>
 		<div id="main">
-			<div data-id="personalisation">
+			<div data-id="personalisation" class="active-p">
 				<h3>Personalisation</h3>
 				<h5>Background</h5>
 				<img src="/assets/img/bg5.avif" class="selected bg">
@@ -100,12 +145,35 @@
 				<img src="/assets/img/bg2.jpg" class="bg">
 				<img src="/assets/img/bg.webp" class="bg">
 			</div>
+			<div data-id="dateandtime">
+				<h3>Date & Time</h3>
+				<h5>Time Format</h5>
+				<select id="timeFormat">
+					<option value="true">12-hour</option>
+					<option value="false">24-hour</option>
+				</select>
+				<h5>Date Format</h5>
+				<select id="dateFormat">
+					<option value="en-GB">Date/Month/Year</option>
+					<option value="en-US">Month/Date/Year</option>
+				</select>
+			</div>
+			<div data-id="battery">
+				<h3>Battery</h3>
+				<label for="show_pc"><h5>Show Battery Percentage</h5></label>
+				<input id="show_pc" type="checkbox" checked>
+			</div>
 		</div>
 
 		<script>
 			document.querySelectorAll("ul > li:not(li:has(input))").forEach((el) => {
 				el.addEventListener("click", () => {
+					document.querySelectorAll("ul > li:not(li:has(input))").forEach((el) => {
+						el.classList.remove("active");
+						document.querySelector(`div[data-id="${el.getAttribute("data-id")}"]`).classList.remove("active-p");
+					});
 					el.classList.add("active");
+					document.querySelector(`div[data-id="${el.getAttribute("data-id")}"]`).classList.add("active-p");
 				});
 			});
 
@@ -115,9 +183,38 @@
 						el.classList.remove("selected");
 					});
 					el.classList.add("selected");
-					localStorage.setItem("custom_bg", el.src)
+					localStorage.setItem("custom_bg", el.src);
 				});
 			});
+
+			document.getElementById("srchbar").addEventListener("keyup", () => {
+				const val = document.getElementById("srchbar").value.toLowerCase();
+				document.querySelectorAll("ul > li:not(li:has(input))").forEach((el) => {
+					el.classList.remove("show");
+					if (el.innerText.toLowerCase().includes(val)) {
+						el.classList.add("show");
+					}
+				});
+			});
+
+			document.getElementById("timeFormat").addEventListener("change", () => {
+				localStorage.setItem("timeFormat", document.getElementById("timeFormat").value);
+			});
+			if (localStorage.getItem("timeFormat")) {
+				document.getElementById("timeFormat").value = localStorage.getItem("timeFormat");
+			}
+			document.getElementById("dateFormat").addEventListener("change", () => {
+				localStorage.setItem("dateFormat", document.getElementById("dateFormat").value);
+			});
+			if (localStorage.getItem("dateFormat")) {
+				document.getElementById("dateFormat").value = localStorage.getItem("dateFormat");
+			}
+			document.getElementById("show_pc").addEventListener("change", () => {
+				localStorage.setItem("show_pc", document.getElementById("show_pc").checked);
+			});
+			if (localStorage.getItem("show_pc")) {
+				document.getElementById("show_pc").checked = localStorage.getItem("show_pc") == "true";
+			}
 		</script>
 	</body>
 </html>

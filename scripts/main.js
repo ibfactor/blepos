@@ -41,7 +41,7 @@ navigator.getBattery().then(function(battery) {
 		document.getElementById("battery").innerHTML = "<i class='fas fa-" + bt_icon + "'></i>";
 		return;
 	}
-    document.getElementById("battery").innerHTML = "<i class='fas fa-" + bt_icon + "'></i> " + battery.level * 100 + "%";
+    document.getElementById("battery").innerHTML = "<i class='fas fa-" + bt_icon + "'></i> " + Math.round(battery.level * 100) + "%";
 });
 
 }, 500);

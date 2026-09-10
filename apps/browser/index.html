@@ -1,19 +1,201 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Google</title>
+		<title>Browser</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<style>
 			iframe {
 				position: fixed;
-				top: 0;
+				top: 82px;
 				left: 0;
 				width: 100%;
-				height: 100%;
+				height: calc(100% - 82px - 30px);
 				border: 0;
+				zoom: 0.8;
+			}
+			body > div {
+				position: fixed;
+				top: 0px;
+				left: 0px;
+				width: 100%;
+				z-index: 5;
+				background-color: rgba(255, 255, 255, 0.02);
+				padding: 0px;
+			}
+			input {
+				background-color: rgba(255, 255, 255, 0.1);
+				border: 1px solid #4a4a4a;
+				border-radius: 5px;
+				width: calc(100% - 105px);
+				color: white;
+				padding: 5px;
+				transition: all 0.2s;
+			}
+			input:focus {
+				outline: 0;
+				background-color: rgba(255, 255, 255, 0.15);
+			}
+
+			button {
+				color: white;
+				background-color: transparent;
+				border-radius: 50%;
+				width: 40px;
+				height: 40px;
+				border: 1px solid transparent;
+				cursor: pointer;
+				transition: all 0.2s;
+				text-align: center;
+			}
+			button:focus, button:active, button:hover, #tabs > a:hover {
+				border: 1px solid #4a4a4a;
+				background-color: rgba(255, 255, 255, 0.1);
+			}
+			button:nth-of-type(3) {
+				position: absolute;
+				right: 8px;
+				top: 31.5px;
+				height: 30px;
+				width: 30px;
+				display: none;
+			}
+			#tabs {
+				background-color: rgba(0, 0, 0, 1);
+				margin: 0;
+				padding-top: 2px;
+				padding-left: 2px;
+			}
+			#tabs p {
+				font-family: sans-serif;
+				font-size: 12px;
+				padding: 5px;
+				margin: 0;
+				color: white;
+				background-color: rgba(255, 255, 255, 0.2);
+				display: inline-block;
+				border-radius: 5px 5px 0 0;
+				cursor: pointer;
+				user-select: none;
+			}
+			#tabs p:not(p.activeTab) {
+				background-color: rgba(255, 255, 255, 0);
+			}
+			#tabs p a {
+				text-decoration: none;
+				color: white;
+				display: inline-block;
+				vertical-align: top;
+				margin-left: 5px;
+			}
+			#tabs > a {
+				display: inline-block;
+				color: white;
+				background-color: transparent;
+				border-radius: 50%;
+				width: 20px;
+				height: 21px;
+				text-align: center;
+				border: 1px solid transparent;
+				cursor: pointer;
+				text-decoration: none;
+				transition: all 0.2s;
 			}
 		</style>
 	</head>
 	<body>
+		<div>
+			<div id="tabs">
+			</div>
+			<button id="rld"><i class="fas fa-redo"></i></button><button id="home"><i class="fas fa-home"></i></button>
+			<input type="url" value="https://www.google.com/search?igu=1">
+			<button><i class="far fa-star"></i></button>
+		</div>
 		<iframe src="https://www.google.com/search?igu=1"></iframe>
+
+		<script>
+			const tabs = ["https://www.google.com/search?igu=1", "https://wikipedia.org", "https://midl.ibfr.org"];
+			var activeTab = 0;
+
+			function showTabs() {
+				if (tabs.length == 0) {
+					parent.fadeOut(window.frameElement.parentElement);
+					setTimeout(() => {
+						parent.closedApp(window.frameElement.parentElement);
+						window.frameElement.parentElement.remove();
+					}, 200);
+				}
+				document.getElementById("tabs").innerHTML = "";
+				tabs.forEach((item, index) => {
+					document.getElementById("tabs").innerHTML +=
+						`<p data-url="${btoa(item)}"${ activeTab == index ? " class=\"activeTab\"" : "" }>${item.replace("http://", "").replace("https://", "").split("/")[0].replace("www.", "")} <a href="#!">&times;</a></p>`;
+				});
+				document.getElementById("tabs").innerHTML += `<a href="#!">+</a>`;
+				document.querySelector("#tabs > a").addEventListener("click", (ev) => {
+					ev.preventDefault();
+					tabs.push("https://www.google.com/search?igu=1");
+					activeTab = tabs.length - 1;
+					showTabs();
+					document.querySelectorAll(`p[data-url]`)[activeTab].click();
+				});
+				tabs.forEach((item, index) => {
+					document.querySelectorAll(`p[data-url]`)[index].children[0].addEventListener("click", (ev) => {
+						ev.preventDefault();
+						ev.stopPropagation();
+						tabs.splice(index, 1);
+						if (activeTab == index) activeTab--;
+						if (activeTab > index) {
+							activeTab--;
+						}
+						if (activeTab < 0) activeTab++;
+						showTabs();
+					});
+
+					document.querySelectorAll(`p[data-url]`)[index].addEventListener("click", () => {
+						document.querySelectorAll(`p[data-url]`).forEach((e) => {
+							e.classList.remove("activeTab");
+						});
+						document.querySelectorAll(`p[data-url]`)[index].classList.add("activeTab");
+						activeTab = index;
+						document.querySelector("iframe").src = item;
+						document.querySelector("input").value = item;
+					});
+				});
+			}
+
+			document.getElementById("rld").addEventListener("click", () => {
+				document.querySelector("iframe").src += "";
+			});
+
+			document.getElementById("home").addEventListener("click", () => {
+				tabs[activeTab] = "https://www.google.com/search?igu=1";
+				showTabs();
+				document.querySelector("iframe").src = "https://www.google.com/search?igu=1";
+				document.querySelector("input").value = "https://www.google.com/search?igu=1";
+			});
+
+			document.querySelector("input").addEventListener("keyup", (event) => {
+				if (event.key != "Enter") return;
+				var url = document.querySelector("input").value;
+
+				if (!url.startsWith("https://")) {
+					url = url.replace("http://", "https://");
+					if (url.endsWith(".com") || url.endsWith(".com/") || url.endsWith(".org") || url.endsWith(".net")) {
+						url = "https://" + url;
+						if (url.includes("google.com")) {
+							url += "?igu=1";
+						}
+					}
+					else {
+						url = "https://www.google.com/search?igu=1&q=" + encodeURIComponent(url);
+					}
+				}
+
+				tabs[activeTab] = url;
+				document.querySelector("iframe").src = tabs[activeTab];
+				document.querySelector("input").value = tabs[activeTab];
+			});
+
+			showTabs();
+		</script>
 	</body>
 </html>
