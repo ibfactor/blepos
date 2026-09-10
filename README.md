@@ -10,8 +10,8 @@
 - App fullscreen
 - Camera App
 - Calculator App
-- Web Browser
-- Settings App (customisable background)
+- Web Browser (multi-tab support, home button, reload button)
+- Settings App (customisable background, date/time, battery)
 - Multi-window support
 - Force quitting apps
 - Bringing all app windows to front (by clicking the icon in the dock)
