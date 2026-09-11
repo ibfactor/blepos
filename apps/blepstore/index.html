@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>BlepStore</title>
+		<link rel="stylesheet" href="/assets/styles/main.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style>
+			h3:nth-of-type(1) {
+				margin-top: 0;
+			}
+			body {
+				padding-bottom: 20px;
+			}
+			.app-card {
+				background-color: rgba(255, 255, 255, 0.1);
+				border-radius: 5px;
+				width: calc(50% - 13px - 10px);
+				display: inline-block;
+				position: relative;
+				padding: 10px;
+				padding-left: 5px;
+				padding-right: 5px;
+				padding-bottom: 29px;
+				transition: all 0.2s;
+			}
+			.app-card > div {
+				position: absolute;
+				left: 80px;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+			.app-card > div * {
+				margin: 0;
+			}
+			.app {
+				border-radius: 10px 10px 0 0;
+				padding-bottom: 5px;
+				padding-top: 8px;
+			}
+			.get {
+				position: absolute;
+				bottom: 10px;
+				left: 7px;
+				background-color: rgba(100,100,255,0.5);
+				padding: 0;
+				border-radius: 0px 0px 10px 10px;
+				width: 55px;
+				transition: all 0.2s;
+			}
+			.app:hover + .get {
+				zoom: 1.1;
+				left: 3.85px;
+				bottom: 5.2px;
+			}
+			.app-card {
+				margin-bottom: 12px;
+				margin-right: 5px;
+				margin-left: 5px;
+				cursor: pointer;
+			}
+			.app-card:hover {
+				background-color: rgba(255, 255, 255, 0.15);
+			}
+
+			#progress {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 80%;
+				padding: 20px;
+				border-radius: 5px;
+				background-color: rgba(0, 0, 0, 0.5);
+				display: none;
+			}
+			#progress #loader {
+				display: block;
+				background-color: black;
+				overflow: hidden;
+				border-radius: 5px;
+			}
+			#progress #loader #load {
+				background-color: rgba(100,100,255,0.5);
+				padding: 15px;
+				padding-left: 0;
+				padding-right: 0;
+				width: 0%;
+				transition: all 0.2s;
+			}
+		</style>
+	</head>
+	<body>
+		<h3>Apps</h3>
+		<div id="apps">
+			<div class="app-card">
+				<button class="app orange" data-id="granny3">
+					<i class="fas fa-crutch"></i>
+				</button>
+				<button class="get">GET</button>
+				<div>
+					<h3>Granny 3: Return the School</h3>
+					<p>Entertainment</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app orange" data-id="mineandbuild">
+					<i class="fas fa-hammer"></i>
+				</button>
+				<button class="get">GET</button>
+				<div>
+					<h3>Mine & Build</h3>
+					<p>Entertainment</p>
+				</div>
+			</div>
+		</div>
+		<h3>Installed Apps</h3>
+		<div id="installed_apps">
+			<div class="app-card">
+				<button class="app orange" data-id="files">
+					<i class="fas fa-folder"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>Files</h3>
+					<p>Utilities</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app blue" data-id="browser">
+					<i class="fas fa-globe"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>Browser</h3>
+					<p>Utilities</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app orange" data-id="calculator">
+					<i class="fas fa-calculator"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>Calculator</h3>
+					<p>Utilities</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app grey" data-id="camera">
+					<i class="fas fa-camera"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>Camera</h3>
+					<p>Utilities</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app black" data-id="terminal">
+					<i class="fas fa-terminal"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>Terminal</h3>
+					<p>System App</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app red" data-id="ace">
+					<i class="fas fa-code"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>Ace Editor</h3>
+					<p>Utilities</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app grey" data-id="settings">
+					<i class="fas fa-cogs"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>Settings</h3>
+					<p>System App</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app green" data-id="preview">
+					<i class="fas fa-image"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>Preview</h3>
+					<p>Utilities</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app green" data-id="bleptube">
+					<i class="fas fa-play"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>BlepTube</h3>
+					<p>Entertainment</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app orange" data-id="doom">
+					<i class="fas fa-meteor"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>Doom</h3>
+					<p>Entertainment</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app orange" data-id="8ball-pool">
+					<i class="fas fa-quidditch"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>8 Ball Pool</h3>
+					<p>Entertainment</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app orange" data-id="cube-worlds">
+					<i class="fas fa-cubes"></i>
+				</button>
+				<button class="get">OPEN</button>
+				<div>
+					<h3>Cube Worlds</h3>
+					<p>Entertainment</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="progress">
+			<div id="loader">
+				<div id="load"></div>
+			</div>
+		</div>
+
+		<script>
+			if (!localStorage.getItem("installed")) {
+				localStorage.setItem("installed", "[]");
+			}
+			JSON.parse(localStorage.getItem("installed")).forEach((it) => {
+				const item = it.replace(".app", "");
+				if (document.querySelector(`#apps .app-card [data-id="${item}"]`)) {
+					document.querySelector(`#apps .app-card [data-id="${item}"]`).parentElement.innerHTML = document.querySelector(`#apps .app-card [data-id="${item}"]`).parentElement.innerHTML.replace("GET", "OPEN");
+
+					document.querySelector("#installed_apps").appendChild(document.querySelector(`#apps .app-card [data-id="${item}"]`).parentElement);
+				}
+			});
+			document.querySelectorAll("#installed_apps .app-card").forEach((item) => {
+				item.addEventListener("click", () => {
+					parent.launchApp(item.children[0].getAttribute("data-id"));
+				});
+			});
+
+			document.querySelectorAll(`#apps .app-card`).forEach((elem) => {
+				elem.addEventListener("click", () => {
+					if (elem.closest("#installed_apps")) return;
+					if (!parent.preloadedFiles["desktop/Games"]) parent.preloadedFiles["desktop/Games"] = [];
+					parent.preloadedFiles["desktop/Games"].push(elem.children[0].getAttribute("data-id") + ".app");
+					console.log(elem.children[0].getAttribute("data-id") + ".app");
+					const newJSON = JSON.parse(localStorage.getItem("installed"));
+					newJSON.push(elem.children[0].getAttribute("data-id") + ".app");
+					localStorage.setItem("installed", JSON.stringify(newJSON));
+					document.querySelector("#installed_apps").appendChild(elem);
+					document.getElementById("progress").style.display = "block";
+					setTimeout(() => {
+						document.getElementById("load").style.width = "35%";
+						setTimeout(() => {
+							document.getElementById("load").style.width = "50%";
+							setTimeout(() => {
+								document.getElementById("load").style.width = "80%";
+								setTimeout(() => {
+									document.getElementById("load").style.width = "100%";
+									setTimeout(() => {
+										document.getElementById("progress").style.display = "none";
+										document.getElementById("load").style.width = "0%";
+										location.reload();
+									}, 300);
+								}, 100);
+							}, 800);
+						}, 500);
+					}, 200);
+				});
+			});
+		</script>
+	</body>
+</html>

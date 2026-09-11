@@ -17,7 +17,7 @@ function runDestructionSequence() {
 	alert("but im afraid there is no going back");
 	setTimeout(() => {
 
-		setInterval(() => {
+		/*setInterval(() => {
 			document.querySelectorAll("*").forEach((elem) => {
 				elem.classList.remove("destroy3");
 				elem.classList.remove("destroy2");
@@ -30,7 +30,9 @@ function runDestructionSequence() {
 						elem.classList.add("destroy3");
 					}, 400);
 			});
-		}, 600);
+		}, 600);*/
+
+		document.body.innerHTML = `<img src="/icons/cat.jpg" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;width:100%;">`;
 
 	}, 3000);
 }

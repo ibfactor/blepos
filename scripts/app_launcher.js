@@ -61,6 +61,15 @@ function launchApp(id, bypass = false, extra = null) {
 			bringWindowsToFront(id);
 		}
 	}
+	else if (id == "blepstore") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("BlepStore", "blepstore", "/apps/blepstore", 600, 500);
+			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
 	else if (id == "settings") {
 		if (!windowExists(id) || bypass) {
 			launchWindow("Settings", "settings", "/apps/settings", 600, 500);
@@ -118,6 +127,24 @@ function launchApp(id, bypass = false, extra = null) {
 	else if (id == "cube-worlds") {
 		if (!windowExists(id) || bypass) {
 			launchWindow("Cube Worlds", "cube-worlds", "/apps/games/cube-worlds", 600, 500);
+			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
+	else if (id == "granny3") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("Granny 3: Return the School", "granny3", "/apps/games/granny3", 600, 500);
+			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
+	else if (id == "mineandbuild") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("Mine & Build", "mineandbuild", "/apps/games/mineandbuild", 600, 500);
 			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
 		}
 		else {
