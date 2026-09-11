@@ -123,6 +123,42 @@
 				width: auto;
 				vertical-align: middle;
 			}
+
+			#storage_usage {
+				margin: 0;
+			}
+
+			#storage {
+				background-color: rgba(50, 50, 50, 0.5);
+				overflow: hidden;
+				width: calc(100% - 40px);
+				border-radius: 5px;
+				padding: 0;
+			}
+			#storage > div {
+				padding: 15px;
+				padding-left: 0;
+				padding-right: 0;
+				background-color: rgba(50, 50, 100, 0.8);
+				width: 1%;
+				margin: 0;
+			}
+			#storage + p {
+				font-size: 11px;
+				text-align: right;
+				width: calc(100% - 40px);
+			}
+
+			table th {
+				text-align: left;
+			}
+			table td {
+				text-align: right;
+			}
+			table {
+				width: calc(100% - 40px);
+				font-size: 13px;
+			}
 		</style>
 	</head>
 	<body>
@@ -132,6 +168,7 @@
 				<li><input type="text" id="srchbar" placeholder="Search..."></li>
 				<li data-id="personalisation" class="active show">Personalisation</li>
 				<li data-id="dateandtime" class="show">Date & Time</li>
+				<li data-id="storage" class="show">Storage</li>
 				<li data-id="battery" class="show">Battery</li>
 			</ul>
 		</div>
@@ -157,6 +194,25 @@
 					<option value="en-GB">Date/Month/Year</option>
 					<option value="en-US">Month/Date/Year</option>
 				</select>
+			</div>
+			<div data-id="storage">
+				<h3>Storage</h3>
+				<h5>Percentage Used (<span id="storage_usage"></span>% used)</h5>
+				<div id="storage">
+					<div></div>
+				</div>
+				<p id="st_usage"></p>
+				<h5>Storage Breakdown</h5>
+				<table>
+					<tr>
+						<th>App Memory</th>
+						<td>0 MiB</td>
+					</tr>
+					<tr>
+						<th>Files</th>
+						<td>0 MiB</td>
+					</tr>
+				</table>
 			</div>
 			<div data-id="battery">
 				<h3>Battery</h3>
@@ -215,6 +271,46 @@
 			if (localStorage.getItem("show_pc")) {
 				document.getElementById("show_pc").checked = localStorage.getItem("show_pc") == "true";
 			}
+
+			function humanFileSize(bytes, si=false, dp=1) {
+			  const thresh = si ? 1000 : 1024;
+
+			  if (Math.abs(bytes) < thresh) {
+			    return bytes + ' B';
+			  }
+
+			  const units = si 
+			    ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'] 
+			    : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+			  let u = -1;
+			  const r = 10**dp;
+
+			  do {
+			    bytes /= thresh;
+			    ++u;
+			  } while (Math.round(Math.abs(bytes) * r) / r >= thresh && u < units.length - 1);
+
+
+			  return bytes.toFixed(dp) + ' ' + units[u];
+			}
+
+			async function loadStorage() {
+				const st = await navigator.storage.estimate();
+				const ls = Math.round((JSON.stringify(localStorage).length * 2));
+				const pc = (Math.round(((st.usage + ls)/st.quota) * 10000) / 10000) * 100;
+
+				document.getElementById("storage_usage").innerText = pc;
+				if (pc > 1) {
+					document.querySelector("#storage > div").style.width = pc + "%";
+				}
+
+				document.getElementById("st_usage").innerText = humanFileSize(st.usage + ls) + "/" + humanFileSize(st.quota);
+
+				document.querySelectorAll("td")[0].innerText = humanFileSize(ls);
+				document.querySelectorAll("td")[1].innerText = humanFileSize(st.usage);
+			}
+
+			loadStorage();
 		</script>
 	</body>
 </html>

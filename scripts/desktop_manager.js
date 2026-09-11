@@ -133,11 +133,30 @@ document.querySelectorAll(".d-icon").forEach((item) => {
   dragIcon(item, true);
 });
 
+window.desktopSaveInt = setInterval(() => {
+  console.log("pass");
+}, 200);
+
+
+function isElementInViewport(el) {
+  const rect = el.getBoundingClientRect();
+  
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+
 function reRenderDesktop() {
   document.querySelectorAll("#desktop_files table td").forEach((item) => {
     item.innerHTML = "";
   });
-
+  if (localStorage.getItem("desktopSaves")) {
+    window.saveFiles = JSON.parse(localStorage.getItem("desktopSaves"));
+  }
   preloadedFiles["desktop"].forEach((file, index) => {
     /*var item = "/icons/folder.png";
     if (file == "Trash") {
@@ -145,9 +164,18 @@ function reRenderDesktop() {
     }*/
     var item = getIcon(file);
 
-    const rect = document.querySelectorAll("#desktop_files td")[index].getBoundingClientRect();
+    var ind = index;
+    if (window.saveFiles && window.saveFiles[file]) {
+      ind = window.saveFiles[file];
+    }
 
-    document.querySelectorAll("#desktop_files td")[index].innerHTML = `<div style="top: ${(rect.top - 26)}px; left: ${(rect.left + 1.5)}px;" class="d-icon" data-type="folder" data-path="/desktop/${file}">
+    while (!isElementInViewport(document.querySelectorAll("#desktop_files td")[ind]) || document.querySelectorAll("#desktop_files td")[ind].querySelector(".d-icon")) {
+      ind++;
+    }
+
+    const rect = document.querySelectorAll("#desktop_files td")[ind].getBoundingClientRect();
+
+    document.querySelectorAll("#desktop_files td")[ind].innerHTML = `<div style="top: ${(rect.top - 26)}px; left: ${(rect.left + 1.5)}px;" class="d-icon" data-type="folder" data-path="/desktop/${file}">
       <img src="${item}">
       <span>${file}</span>
     </div>`;
@@ -156,5 +184,16 @@ function reRenderDesktop() {
     dragIcon(item, true);
   });
 
+  clearInterval(window.desktopSaveInt);
+  window.desktopSaveInt = setInterval(() => {
+    window.saveFiles = {};
+    document.querySelectorAll("#desktop_files td").forEach((item, index) => {
+      if (!item.querySelector(".d-icon")) return;
+      const it = item.querySelector(".d-icon").getAttribute("data-path").split("/desktop/")[1];
+      window.saveFiles[it] = index;
+    });
+    localStorage.setItem("desktopSaves", JSON.stringify(window.saveFiles));
+  }, 200);
 }
 
+reRenderDesktop();
