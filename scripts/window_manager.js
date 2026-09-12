@@ -147,13 +147,17 @@ function launchWindow(title, id, url = "about:blank", width, height, extra) {
 					console.log(err);
 				}
 
-				const monitor = setInterval(function() {
+				/*const monitor = setInterval(function() {
 				    var elem = document.activeElement;
 				    if (elem && elem == win.querySelector("iframe")) {
 				        sendAllWindowsToBack();
 								win.classList.add("win-front");
 				    }
-				}, 100);
+				}, 100);*/
+				win.querySelector("iframe").contentDocument.body.addEventListener("click", () => {
+					sendAllWindowsToBack();
+					win.classList.add("win-front");
+				});
 				firstTime = false;
 			}
 	});
