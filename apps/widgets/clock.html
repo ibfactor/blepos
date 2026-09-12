@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			* {
+				cursor: pointer;
+				user-select: none;
+			}
+			analog-clock {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+
+				--analog-clock-bg: rgba(0, 0, 0, 0.5);
+				backdrop-filter: blur(5px);
+				--analog-clock-c: rgba(255, 255, 255, 0.8);
+				--analog-clock-indices-c: #ddd;
+				--analog-clock-second: #ff4444;
+				--analog-clock-cap-sz: 4cqi;
+			}
+		</style>
+	</head>
+	<body>
+		<analog-clock></analog-clock>
+		<script src="https://browser.style/ui/analog-clock/index.js" type="module"></script>
+	</body>
+</html>
