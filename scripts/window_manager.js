@@ -154,7 +154,7 @@ function launchWindow(title, id, url = "about:blank", width, height, extra) {
 								win.classList.add("win-front");
 				    }
 				}, 100);*/
-				win.querySelector("iframe").contentDocument.body.addEventListener("click", () => {
+				win.querySelector("iframe").contentWindow.addEventListener("click", () => {
 					sendAllWindowsToBack();
 					win.classList.add("win-front");
 				});
@@ -169,7 +169,10 @@ function launchWindow(title, id, url = "about:blank", width, height, extra) {
 
 	allowDragAndResize(win);
 	titleBarButtons(win);
-	allowFront(win);
+
+	setTimeout(() => {
+		allowFront(win);
+	}, 300);
 
 	return win.querySelector("iframe");
 }
