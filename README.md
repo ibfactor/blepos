@@ -30,6 +30,8 @@
 - BlepTube (doomscrolling app)
 - Ability to change date/time format (24 hour or 12 hour, DD/MM/YYYY or MM/DD/YYYY)
 - Built-in battery level fetching (via navigator `getBattery()`)
+- Built-in storage calculation (from IndexedDB usage/quota and localStorage)
+- BlepStore, custom app store where you can download and launch apps
 - ~~Widgets~~ (was not satisfied by the implementation, perhaps for a future ship)
 ### Note Regarding Games
 All games are embedded from third-party services, appropriate credit is present in each game's menu.
