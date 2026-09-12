@@ -36,4 +36,4 @@ All games are embedded from third-party services, appropriate credit is present 
 This is a completely static website.\
 You can clone this repository into your website folder and access the index.html file.\
 Alternatively, you can fork this repo and connect it to Cloudflare Pages or Netlify.\
-This WebOS has no external dependencies (apart from FontAwesome, for icons, which is fetched from JSDelivr automatically)
+This WebOS has no external dependencies (apart from FontAwesome, and @browser.style/analoguec-clock, which are from CDNs automatically)
