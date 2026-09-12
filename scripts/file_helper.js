@@ -2,19 +2,22 @@ function saveFileSystem() {
 	localStorage.setItem("files", JSON.stringify(preloadedFiles));
 }
 
-if (localStorage.getItem("files")) {
+if (!localStorage.getItem("files")) {
 	var preloadedFiles = JSON.parse(localStorage.getItem("files"));
 }
 else {
 	var preloadedFiles = {
 		"apps": [
 			"browser.app",
+			"bleptube.app",
 			"calculator.app",
 			"camera.app",
 			"settings.app",
+			"taskmanager.app",
 			"terminal.app",
 			"files.app",
-			"ace.app"
+			"ace.app",
+			"blepstore.app"
 		],
 		"desktop": [
 			"Trash",
