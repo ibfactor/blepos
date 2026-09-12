@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Task Manager</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="/assets/styles/main.css">
+		<style>
+			* {
+				color: white;
+			}
+			html, body {
+				width: calc(100% - 8px);
+				height: 100%;
+			}
+			body {
+				overflow-y: scroll;
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+			table, tr, td, th {
+				border: 1px solid rgba(255, 255, 255, 0.3);
+			}
+			tr td, tr th {
+				background-color: rgba(50, 50, 50, 0.5);
+				padding: 8px;
+				padding-top: 2px;
+				padding-bottom: 2px;
+				cursor: normal;
+			}
+			tr th {
+				background-color: rgba(50, 50, 50, 0.3);
+			}
+			tr > *:nth-of-type(3), tr > *:nth-of-type(4) {
+				text-align: right;
+			}
+			tr > *:nth-of-type(1), tr > *:nth-of-type(2) {
+				text-align: left;
+			}
+			tr > *:nth-of-type(3) {
+				overflow-x: scroll;
+				max-width: 100px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<table>
+			<tr>
+				<th>Process</th>
+				<th>AID</th>
+				<th>PID(s)</th>
+				<th>Child Processes</th>
+			</tr>
+		</table>
+
+		<div id="contextmenu" class="contextmenu">
+			<ul>
+				<li class="disabled">-<i class="fas fa-fighter-jet"></i> Kill Process</li>
+			</ul>
+		</div>
+
+		<script>
+			const table = document.querySelector("table");
+			setInterval(() => {
+				table.innerHTML = `<tr>
+					<th>Process</th>
+					<th>AID</th>
+					<th>PID(s)</th>
+					<th>Child Processes</th>
+				</tr>
+				<tr>
+					<td>System Processes</td>
+					<td>-</td>
+					<td>0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.10</td>
+					<td>10</td>
+				</tr>`;
+				var avb = {};
+				parent.document.querySelectorAll("#windows .window").forEach((win) => {
+					const win_array = [...win.classList.values()];
+					win_array.forEach((classL) => {
+						if (classL.startsWith("w-")) {
+							if (!avb[classL + "~" + win.innerText.trim()]) avb[classL + "~" + win.innerText.trim()] = 0;
+							avb[classL + "~" + win.innerText.trim()]++;
+						}
+					});
+				});
+				
+				Object.keys(avb).forEach((key, index) => {
+					const item = avb[key];
+					var pids = (index + 1).toString();
+					if (item > 1) {
+						var i = 0;
+						while (i < item) {
+							if (i == 0) pids = (index + 1) + "." + i;
+							else {
+								pids += ", " + (index + 1) + "." + i;
+							}
+							i++;
+						}
+					}
+					table.innerHTML += `
+						<tr>
+							<td>${key.split("~")[1]}</td>
+							<td>${key.split("~")[0]}</td>
+							<td>${pids}</td>
+							<td>${item}</td>
+						</tr>`;
+				});
+			}, 1000);
+		</script>
+		<script src="/apps/taskmanager/cmenu.js"></script>
+	</body>
+</html>

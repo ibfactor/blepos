@@ -106,6 +106,15 @@ function launchApp(id, bypass = false, extra = null) {
 			bringWindowsToFront(id);
 		}
 	}
+	else if (id == "taskmanager") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("Task Manager", "taskmanager", "/apps/taskmanager", 600, 500);
+			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
 	else if (id == "doom") {
 		if (!windowExists(id) || bypass) {
 			launchWindow("Doom", "doom", "/apps/games/doom", 600, 500);
