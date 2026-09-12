@@ -10,6 +10,11 @@
 
 		<div id="desktop">
 
+		<!--	<div id="widgets">
+				<iframe src="/apps/widgets/clock.html" class="widget clock" style="top:20px;right:20px;"></iframe>
+				<iframe src="/apps/widgets/weather.html" class="widget weather" style="top:300px;right:20px;"></iframe>
+			</div>-->
+
 			<div id="windows">
 			</div>
 
@@ -925,6 +930,18 @@
 						<i class="fas fa-hammer"></i>
 						<span>Mine & Build</span>
 					</button>
+					<button class="app orange" data-id="slitherio">
+						<i class="fas fa-dragon"></i>
+						<span>Slither.io</span>
+					</button>
+					<button class="app orange" data-id="subwaysurfers">
+						<i class="fas fa-subway"></i>
+						<span>Subway Surfers</span>
+					</button>
+					<button class="app orange" data-id="cuttherope">
+						<i class="fas fa-cookie-bite"></i>
+						<span>Cut the Rope</span>
+					</button>
 				</div>
 			</div>
 
@@ -946,7 +963,7 @@
 		</div>
 
 
-		<div id="login">
+		<div id="login" style="display: none;">
 			<div>
 				<h1>Welcome back!</h1>
 				<span><i class="fas fa-circle-notch fa-spin"></i></span>
@@ -954,7 +971,7 @@
 			</div>
 		</div>
 
-		<div id="startup">
+		<div id="startup" style="display: none;">
 			<div>
 				<img src="/assets/img/blep.png">
 				<p id="startup_line">Initialising...</p>
@@ -973,5 +990,6 @@
 		<script src="/scripts/window_manager.js"></script>
 		<script src="/scripts/app_launcher.js"></script>
 		<script src="/scripts/desktop_manager.js"></script>
+		<!-- <script src="/scripts/widget_manager.js"></script> -->
 	</body>
 </html>
