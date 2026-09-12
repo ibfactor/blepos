@@ -368,7 +368,7 @@ button {
 }
 
 
-#desktop_files {
+#desktop_files, #widgets {
 	width: 100%;
 	height: calc(100% - 112px);
 	position: absolute;
@@ -431,3 +431,27 @@ td:hover {
 	text-overflow: ellipsis;
 }
 
+
+
+#widgets {
+	text-align: right;
+}
+.widget {
+	position: absolute;
+	border-radius: 5px;
+	z-index: 2;
+	border: 1px solid #4a4a4a;
+	cursor: pointer;
+}
+.widget:hover {
+	opacity: 0.8;
+}
+.widget.clock {
+	aspect-ratio: 1/1;
+	width: 200px;
+	border-radius: 50%;
+}
+.widget.weather {
+	width: 200px;
+	height: 260px;
+}

@@ -160,6 +160,33 @@ function launchApp(id, bypass = false, extra = null) {
 			bringWindowsToFront(id);
 		}
 	}
+	else if (id == "slitherio") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("Slither.io", "slitherio", "/apps/games/slitherio", 600, 500);
+			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
+	else if (id == "subwaysurfers") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("Subway Surfers", "subwaysurfers", "/apps/games/subwaysurfers", 600, 500);
+			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
+	else if (id == "cuttherope") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("Cut the Rope", "cuttherope", "/apps/games/cuttherope", 600, 500);
+			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
 	else if (id.endsWith(".mp4")) {
 		const win = launchWindow("Media Preview", "preview", "/apps/video", 800, 500);
 		win.addEventListener("load", () => {
