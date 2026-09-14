@@ -123,11 +123,23 @@ function launchWindow(title, id, url = "about:blank", width, height, extra) {
 						<span><span></span><span></span><span></span></span>
 					</div><iframe src="${url}"></iframe>`;
 
-	if (likeExists) {
-		const prev = document.querySelector(".w-" + id);
+	// if (likeExists) {
+		/* const prev = document.querySelector(".w-" + id);
 		win.style.top = Number(prev.style.top.replace("px", "")) + 15 + "px";
-		win.style.left = Number(prev.style.left.replace("px", "")) + 15 + "px";
-	}
+		win.style.left = Number(prev.style.left.replace("px", "")) + 15 + "px";*/
+		var maxTL = [0, 0];
+		document.querySelectorAll(".window").forEach((item, index) => {
+			const top = Number(item.style.top.replace("px", ""));
+			const left = Number(item.style.left.replace("px", ""));
+			if (top > maxTL[0] && left > maxTL[1]) {
+				maxTL = [top, left];
+			}
+		});
+
+		win.style.top = maxTL[0] + 20 + "px";
+		win.style.left = maxTL[1] + 20 + "px";
+
+	// }
 	win.style.width = width + "px";
 	win.style.height = height + "px";
 
