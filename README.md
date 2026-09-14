@@ -32,6 +32,13 @@
 - Built-in battery level fetching (via navigator `getBattery()`)
 - Built-in storage calculation (from IndexedDB usage/quota and localStorage)
 - BlepStore, custom app store where you can download and launch apps
+- Downloadable Apps
+  - JSPaint (utility) 
+  - Granny 3: Return the School (game)
+  - Mine & Build (game)
+  - Subway Surfers (game - the actual one)
+  - Cut the Rope (game - the actual one with om nom)
+  - Slither.io (game - also the actual one)
 - ~~Widgets~~ (was not satisfied by the implementation, perhaps for a future ship)
 ### Note Regarding Games
 All games are embedded from third-party services, appropriate credit is present in each game's menu.
