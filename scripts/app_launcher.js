@@ -187,6 +187,15 @@ function launchApp(id, bypass = false, extra = null) {
 			bringWindowsToFront(id);
 		}
 	}
+	else if (id == "jspaint") {
+		if (!windowExists(id) || bypass) {
+			launchWindow("JSPaint", "jspaint", "/apps/jspaint", 600, 500);
+			document.querySelector("#dock .app[data-id='" + id + "']").classList.add("active");
+		}
+		else {
+			bringWindowsToFront(id);
+		}
+	}
 	else if (id.endsWith(".mp4")) {
 		const win = launchWindow("Media Preview", "preview", "/apps/video", 800, 500);
 		win.addEventListener("load", () => {

@@ -94,7 +94,7 @@
 		</style>
 	</head>
 	<body>
-		<p>All installed games will be downloaded to the "Games" folder on the Desktop, while other apps will be stored in the "Apps" folder (in files).</p>
+		<p>All installed games will be downloaded to the "Games" folder on the desktop, while other apps will be stored in the "Installed Apps" folder on the desktop.</p>
 		<h3>Apps</h3>
 		<div id="apps">
 			<div class="app-card">
@@ -135,6 +135,16 @@
 				<div>
 					<h3>Slither.io</h3>
 					<p>Entertainment</p>
+				</div>
+			</div>
+			<div class="app-card">
+				<button class="app blue" data-id="jspaint">
+					<i class="fas fa-paint-brush"></i>
+				</button>
+				<button class="get">GET</button>
+				<div>
+					<h3>JSPaint</h3>
+					<p>Utilities</p>
 				</div>
 			</div>
 			<div class="app-card">
@@ -299,8 +309,20 @@
 			document.querySelectorAll(`#apps .app-card`).forEach((elem) => {
 				elem.addEventListener("click", () => {
 					if (elem.closest("#installed_apps")) return;
-					if (!parent.preloadedFiles["desktop/Games"]) parent.preloadedFiles["desktop/Games"] = [];
-					parent.preloadedFiles["desktop/Games"].push(elem.children[0].getAttribute("data-id") + ".app");
+
+					if (!elem.innerText.includes("Utilities")) {
+						if (!parent.preloadedFiles["desktop/Games"]) parent.preloadedFiles["desktop/Games"] = [];
+						if (!parent.preloadedFiles["desktop"].includes("Games")) parent.preloadedFiles["desktop"].push("Games");
+						parent.preloadedFiles["desktop/Games"].push(elem.children[0].getAttribute("data-id") + ".app");
+					}
+					else {
+						if (!parent.preloadedFiles["desktop/Installed Apps"]) parent.preloadedFiles["desktop/Installed Apps"] = [];
+						if (!parent.preloadedFiles["desktop"].includes("Installed Apps")) parent.preloadedFiles["desktop"].push("Installed Apps");
+						parent.preloadedFiles["desktop/Installed Apps"].push(elem.children[0].getAttribute("data-id") + ".app");
+					}
+
+					parent.reRenderDesktop();
+
 					console.log(elem.children[0].getAttribute("data-id") + ".app");
 					const newJSON = JSON.parse(localStorage.getItem("installed"));
 					newJSON.push(elem.children[0].getAttribute("data-id") + ".app");
