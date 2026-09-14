@@ -101,6 +101,9 @@ function getIcon(file) {
   if (file == "Games") {
     item = "/icons/games.png";
   }
+  if (file == "Installed Apps") {
+    item = "/icons/favourite-folder.png";
+  }
   if (file.endsWith(".app")) {
     item = "/icons/executable.png";
   }
@@ -163,6 +166,12 @@ function reRenderDesktop() {
       item = "/icons/trash.png";
     }*/
     var item = getIcon(file);
+
+    if (item == "/icons/folder.png") {
+      if (preloadedFiles["desktop/" + file] && preloadedFiles["desktop/" + file].length > 0) {
+        item = "/icons/full-folder.png";
+      }
+    }
 
     var ind = index;
     if (window.saveFiles && window.saveFiles[file]) {
