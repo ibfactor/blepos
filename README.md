@@ -47,3 +47,11 @@ This is a completely static website.\
 You can clone this repository into your website folder and access the index.html file.\
 Alternatively, you can fork this repo and connect it to Cloudflare Pages or Netlify.\
 This WebOS has no external dependencies (apart from FontAwesome, and @browser.style/analoguec-clock, which are from CDNs automatically)
+### Repository Structure
+| File/Folder | Contains                                                                |
+|-------------|-------------------------------------------------------------------------|
+| assets      | Contains wallpaper images and the main stylesheet                       |
+| scripts     | Contains all the JavaScript files for the OS itself                     |
+| apps        | Contains all of the apps (including uninstalled ones), with their files |
+| icons       | Contains file icons (for the desktop)                                   |
+| index.html  | Entry point to the operating system                                     |
