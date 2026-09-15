@@ -40,6 +40,7 @@
   - Cut the Rope (game - the actual one with om nom)
   - Slither.io (game - also the actual one)
 - ~~Widgets~~ (was not satisfied by the implementation, perhaps for a future ship)
+- Spotlight feature (click the search icon in the toolbar)
 ### Note Regarding Games
 All games are embedded from third-party services, appropriate credit is present in each game's menu.
 ### Self-Hosting:
