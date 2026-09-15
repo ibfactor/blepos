@@ -130,7 +130,7 @@ button {
 #toolbar div p {
 	display: inline-block;
 }
-#battery {
+#battery, #spotlight {
 	margin-right: 10px;
 }
 
@@ -454,4 +454,98 @@ td:hover {
 .widget.weather {
 	width: 200px;
 	height: 260px;
+}
+
+
+#spotlight {
+	cursor: pointer;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin-top: -2px;
+	border-radius: 5px;
+}
+#spotlight:hover {
+	backdrop-filter: blur(8px);
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+#spotlight-main {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 350px;
+	width: 90%;
+	transition: all 0.2s;
+}
+#spotlight-main > div {
+	position: relative;
+	background-color: rgba(50, 50, 50, 0.5);
+	padding: 0px;
+	height: 70px;
+	width: 100%;
+	border-radius: 40px;
+	backdrop-filter: blur(3px);
+	border: 0.5px solid rgba(255, 255, 255, 0.2);
+	outline: 0.5px solid rgba(50, 50, 50);
+	overflow: hidden;
+	transition: 0.2s all;
+}
+#spotlight-main > div > i {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 17px;
+}
+#spotlight-main > div > input {
+	background-color: transparent;
+	border: 0;
+	position: absolute;
+	left: 45px;
+	height: 100%;
+	width: calc(100% - 45px);
+	font-size: 15px;
+	font-family: Montserrat, sans-serif;
+}
+#spotlight-main > div > input::placeholder {
+	color: rgba(255, 255, 255, 0.5);
+}
+#spotlight-main > div > input:focus {
+	outline: 0;
+}
+#spotlight-main:has(#spotlight-result div) > div:nth-of-type(1) {
+	border-radius: 40px 40px 0 0;
+}
+#spotlight-main > #spotlight-result {
+	border-radius: 0px 0px 40px 40px;
+	border: 0;
+	outline: 0;
+	width: 100%;
+	height: 0;
+}
+#spotlight-main #spotlight-result:has(div) {
+	border: 0.5px solid rgba(255, 255, 255, 0.2);
+	outline: 0.5px solid rgba(50, 50, 50);
+	height: 200px;
+	padding-bottom: 20px;
+	overflow-y: scroll;
+}
+#spotlight-main #spotlight-result div {
+	padding: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+#spotlight-result div:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+#spotlight-result div img {
+	width: 50px;
+	vertical-align: middle;
+	width: 25px;
+	margin-right: 5px;
+	margin-left: 10px;
 }

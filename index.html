@@ -859,6 +859,7 @@
 				<h5>BlepOS</h5>
 
 				<div>
+					<p id="spotlight"><i class="fas fa-search"></i></p>
 					<p id="battery"></p>
 					<p id="toolbar_dt"></p>
 				</div>
@@ -949,6 +950,14 @@
 				</div>
 			</div>
 
+			<div id="spotlight-main" style="display: none;opacity: 0;">
+				<div>
+					<i class="fas fa-search"></i>
+					<input placeholder="Type anything...">
+				</div>
+				<div id="spotlight-result"></div>
+			</div>
+
 		</div>
 
 
@@ -967,7 +976,7 @@
 		</div>
 
 
-		<div id="login" style="display: none;">
+		<div id="login">
 			<div>
 				<h1>Welcome back!</h1>
 				<span><i class="fas fa-circle-notch fa-spin"></i></span>
@@ -975,7 +984,7 @@
 			</div>
 		</div>
 
-		<div id="startup" style="display: none;">
+		<div id="startup">
 			<div>
 				<img src="/assets/img/blep.png">
 				<p id="startup_line">Initialising...</p>
@@ -994,6 +1003,7 @@
 		<script src="/scripts/window_manager.js"></script>
 		<script src="/scripts/app_launcher.js"></script>
 		<script src="/scripts/desktop_manager.js"></script>
+		<script src="/scripts/spotlight.js"></script>
 		<!-- <script src="/scripts/widget_manager.js"></script> -->
 	</body>
 </html>
