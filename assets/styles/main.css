@@ -549,3 +549,73 @@ td:hover {
 	margin-right: 5px;
 	margin-left: 10px;
 }
+
+
+
+
+
+.sys-alert {
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	width: 400px;
+	height: 180px;
+	border-radius: 5px;
+	background-color: rgba(0, 0, 0, 0.8);
+	backdrop-filter: blur(5px);
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+	overflow: hidden;
+	transition: opacity 0.25s;
+	border: 0.5px solid #4a4a4a;
+	z-index: 26;
+}
+.sys-alert .tbar {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.8);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 20px;
+	font-family: "Jetbrains Mono", monospace;
+	font-size: 13px;
+	cursor: grab;
+	transition: 0.25s all;
+	border-bottom: 0.5px solid #4a4a4a;
+}
+.sys-alert .tbar > span:nth-of-type(1) {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 5px;
+	width: calc(100% - 5px - 80px);
+}
+.sys-alert .tbar > span:nth-of-type(2) {
+	width: 80px;
+	height: 100%;
+	position: absolute;
+	right: 5px;
+	top: 50%;
+	transform: translateY(-50%);
+	text-align: right;
+}
+.sys-alert .tbar > span > span {
+	vertical-align: middle;
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	cursor: pointer;
+}
+.sys-alert .tbar > span > span:nth-of-type(1) {
+	background-color: crimson;
+	margin-left: 5px;
+}
+.sys-alert p {
+	position: absolute;
+	width: calc(100% - 40px);
+	height: calc(100% - 40px);
+	padding: 20px;
+	background-color: transparent;
+	border: 0;
+	top: 21px;
+}

@@ -43,11 +43,34 @@ else {
 	localStorage.setItem("files", JSON.stringify(preloadedFiles));
 }
 
+function showDuplicateFilePopup(name) {
+	fadeIn(document.getElementById("system_alert"));
+	document.getElementById("system_alert_name").innerHTML = name;
+}
+
+document.querySelector(".sys-alert .tbar > span > span:nth-of-type(1)").addEventListener("click", () => {
+	fadeOut(document.getElementById("system_alert"));
+});
 
 setInterval(() => {
 	if (localStorage.getItem("files") != JSON.stringify(preloadedFiles)) {
 		localStorage.setItem("files", JSON.stringify(preloadedFiles));
 	}
+
+	// User popup
+	var list_of_items = [];
+	Object.keys(preloadedFiles).forEach((key) => {
+		const items = preloadedFiles[key];
+		items.forEach((item) => {
+			if (!list_of_items.includes(item)) {
+				list_of_items.push(item);
+			}
+			else {
+				showDuplicateFilePopup(item);
+				preloadedFiles[key] = preloadedFiles[key].filter(itemer => itemer != item);
+			}
+		});
+	});
 }, 50);
 
 

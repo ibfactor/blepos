@@ -178,4 +178,3 @@ document.querySelectorAll("#contextmenu_dock li")[1].addEventListener("click", t
 document.querySelectorAll("#contextmenu_dock li")[0].addEventListener("click", newWinApp);
 document.querySelectorAll("#contextmenu li")[0].addEventListener("click", newFolder)
 document.querySelectorAll("#contextmenu li")[1].addEventListener("click", newFile)
-

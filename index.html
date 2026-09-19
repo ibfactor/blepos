@@ -976,7 +976,7 @@
 		</div>
 
 
-		<div id="login">
+		<div id="login" style="display: none;">
 			<div>
 				<h1>Welcome back!</h1>
 				<span><i class="fas fa-circle-notch fa-spin"></i></span>
@@ -984,12 +984,24 @@
 			</div>
 		</div>
 
-		<div id="startup">
+		<div id="startup" style="display: none;">
 			<div>
 				<img src="/assets/img/blep.png">
 				<p id="startup_line">Initialising...</p>
 				<div id="startup_loader"><span></span></div>
 			</div>
+		</div>
+
+		<div class="sys-alert" id="system_alert" style="display:none;opacity:0;">
+			<div class="tbar">
+				<span>Alert!</span>
+				<span><span>
+			</div>
+			<p>
+				File/folder with <span id="system_alert_name">{name}</span> already exists. :(<br>
+				By this point, it's too late, your data has probably been overwritten.<br>
+				Sowwyy... :sad:
+			</p>
 		</div>
 
 
